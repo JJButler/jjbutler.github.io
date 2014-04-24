@@ -7,23 +7,36 @@
 <body>
 <div style="padding:20px" class="markdown-body">
 <h3 id="getting-started-building-testing">Getting Started Building Testing</h3>
-<p>Example Test Sheet:
-PIC 1</p>
+<p>Example Test Sheet:</p>
+<p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
 <ul>
 <li>Define your <strong>Tests</strong> in a <strong>Sheet</strong> in an Excel file</li>
-<li>A <strong>Sheet</strong> has a header row which defines the <strong>Test Steps</strong> as a series of actions to perform in executing the <strong>Test</strong></li>
-<li><strong>Tests</strong> are then defined in the rows underneath the header row and define values to be used for each <strong>Test Step</strong></li>
-<li>You can use multiple <strong>Sheets</strong> to add structure to your tests. E.g. “Happy Days Paths”, “Error Cases”</li>
+<li>A <strong>Sheet</strong> uses the first column to define the <strong>Test Steps</strong> as a series of actions to perform in executing the <strong>Test</strong></li>
+<li><strong>Tests</strong> are then defined in the subsequent columns to the right of the Test Steps and define values to be used for each <strong>Test Step</strong></li>
+<li>You can use multiple <strong>Sheets</strong> to add structure to your tests. E.g. “Happy Days Paths”, “Error Cases”, etc</li>
 </ul>
+<h4 id="test-execution">Test Execution</h4>
+<ul>
+<li>Tests are executed sequentially reading tests in each tab and then in each column left to right</li>
+<li>The input file is then copied to show the results of the test<ul>
+<li>Green Cells - have executed successfully</li>
+<li>Red Cells - have failed and caused the remainder of that test to be skipped</li>
+<li>Green dots - show data captured from the test execution</li>
+</ul>
+</li>
+</ul>
+<p>Example Results Sheet </p>
+<p><img src="example2.PNG" >   </p>
 <h4 id="the-basics-test-steps-that-aren-t-really-steps-">The Basics - Test Steps (that aren’t really steps)</h4>
 <ul>
-<li><strong>Enabled</strong> The first column always defines whether the test should be run or not allows tests to be commented out easily: [true|false]</li>
+<li><strong>Enabled</strong> The first row always defines whether the test should be run or not allows tests to be commented out easily: [true|false]</li>
 <li><strong>Comments</strong> Steps whose name starts with a <code>//</code> are ignored at execution time - these allow you to add columns for commenting your tests</li>
 </ul>
 <h4 id="the-basics-test-steps">The Basics - Test Steps</h4>
 <p>Steps follow the form:</p>
-<p>`page:action:detail:locatingAttribute:locatingAttributeValue</p>
+<p>` page : action : detail : locatingAttribute : locatingAttributeValue ‘
+<br/> (Note the above includes spaces for illustration only)</p>
 <p>e.g. <code>homePage:nav:link:href:/account/list</code> or <code>page6:enter:input:id:title</code></p>
 <ul>
 <li>The elements to a step are separated by the <code>:</code> character and define what sort of Web Element is to be used in the <strong>Test Step</strong> and what action should be taken.</li>
@@ -33,17 +46,15 @@ PIC 1</p>
 <h4 id="creating-a-browser">Creating a browser</h4>
 <p>To start, create a browser to run your tests:</p>
 <table>
-<thead>
-<tr>
-<th><code>start:Browser:-:-:-</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ff</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>start:Browser:-:-:-</td>
+        <td>ff</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
+
 <ul>
 <li>Value: define the browser you want to test against options are <code>[ff, chrome, ie]</code></li>
 <li>Action: Browser    </li>
@@ -54,17 +65,16 @@ PIC 1</p>
 <h4 id="navigation">Navigation</h4>
 <h5 id="go-to-a-defined-url">Go to a defined URL</h5>
 <table>
-<thead>
-<tr>
-<th><code>page0:nav:url:-:-</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>http://my.site.com</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page0:nav:url:-:-</td>
+        <td><a href="http://my.site.com">http://my.site.com</a></td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
+
+
 <ul>
 <li>Value: any valid URL</li>
 <li>Action: nav</li>
@@ -74,17 +84,14 @@ PIC 1</p>
 </ul>
 <h4 id="click-on-a-button">Click on a button</h4>
 <table>
-<thead>
-<tr>
-<th><code>page1:nav:button:id:Login</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:nav:button:id:Login</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: <code>-</code></li>
 <li>Action: nav    </li>
@@ -95,30 +102,24 @@ PIC 1</p>
 <h4 id="click-on-a-hyperlink">Click on a hyperlink</h4>
 <p>Example selecting link by attribute “href”:</p>
 <table>
-<thead>
-<tr>
-<th><code>page2:nav:a:href:/accounts/create</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page2:nav:a:href:/accounts/create</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <p>Example selecting link by text of link:</p>
 <table>
-<thead>
-<tr>
-<th><code>page2:nav:a:text:Accounts</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page2:nav:a:text:Accounts</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: <code>-</code></li>
 <li>Action: nav    </li>
@@ -129,17 +130,14 @@ PIC 1</p>
 <h4 id="working-with-forms">Working with Forms</h4>
 <h5 id="input-fields-">Input fields:</h5>
 <table>
-<thead>
-<tr>
-<th><code>page1:enter:input:id:username</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>myUserName</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:enter:input:id:username</td>
+        <td>myUserName</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code></li>
 <li>Action: enter    </li>
@@ -149,17 +147,14 @@ PIC 1</p>
 </ul>
 <h5 id="text-areas-">Text Areas:</h5>
 <table>
-<thead>
-<tr>
-<th><code>page4:enter:textarea:name:address</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>10,School Lane</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page4:enter:textarea:name:address</td>
+        <td>10,School Lane</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code> line breaks can be included</li>
 <li>Action: enter    </li>
@@ -169,17 +164,14 @@ PIC 1</p>
 </ul>
 <h5 id="select-fields-">Select fields:</h5>
 <table>
-<thead>
-<tr>
-<th><code>page1:enter:select:id:salutation</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Dr</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:enter:select:id:salutation</td>
+        <td>Dr</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: needs to specify the exact text of <code>value</code> attribute for the required entry in the select box. Note this may be different from the visible form</li>
 <li>Action: enter    </li>
@@ -189,17 +181,14 @@ PIC 1</p>
 </ul>
 <h5 id="radio-buttons-">Radio Buttons:</h5>
 <table>
-<thead>
-<tr>
-<th><code>page7:enter:radio:name:myRadioButton</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Coffee</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page7:enter:radio:name:myRadioButton</td>
+        <td>Coffee</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: needs to specify the exact text of <code>value</code> attribute for the radio button required</li>
 <li>Action: enter    </li>
@@ -209,17 +198,15 @@ PIC 1</p>
 </ul>
 <h5 id="submitting-form-">Submitting Form:</h5>
 <table>
-<thead>
-<tr>
-<th><code>page3:submit:form:name:new</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:submit:form:name:new</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
+
 <ul>
 <li>Value: <code>-</code></li>
 <li>Action: enter    </li>
@@ -230,17 +217,14 @@ PIC 1</p>
 <h4 id="checking-values-">Checking values:</h4>
 <p>Used to assert that an expected value is actually present in a given web element</p>
 <table>
-<thead>
-<tr>
-<th><code>page3:check:span:id:totalChargeable</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>512.76</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:check:span:id:totalChargeable</td>
+        <td>512.76</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: The expected value</li>
 <li>Action: check</li>
@@ -250,17 +234,14 @@ PIC 1</p>
 </ul>
 <h4 id="capturing-values-">Capturing values:</h4>
 <table>
-<thead>
-<tr>
-<th><code>page3:print:span:id:PolicyReference</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:print:span:id:PolicyReference</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: -</li>
 <li>Action: print</li>
@@ -269,18 +250,16 @@ PIC 1</p>
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
 <h4 id="forced-sleeps">Forced Sleeps</h4>
+<p>Simply pauses the execution of the test steps for a defined period</p>
 <table>
-<thead>
-<tr>
-<th><code>page3:sleep:-:-:-</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>2000</code></td>
-</tr>
-</tbody>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:sleep:-:-:-</td>
+        <td>2000</td>
+    </tr>
+    <tr><td></td><td></td></tr>
 </table>
+
 <ul>
 <li>Value: number of milliseconds to wait for</li>
 <li>Action: enter    </li>
@@ -289,8 +268,29 @@ PIC 1</p>
 <li>Locating Attribute Value: Value of the name attribute</li>
 </ul>
 <h4 id="ignoring-steps">Ignoring steps</h4>
-<p>If you wish a test to ignore some steps of any type simply replace the value with. This can be useful for defining 
-<code>%IGNORE%</code><br/></p>
+<p>If you wish a test to ignore a step of any type simply replace the value with. This can be useful for defining different paths through a series of test steps</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:enter:input:id:username</td>
+        <td>%IGNORE%</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+
+<h4 id="stopping-tests">Stopping Tests</h4>
+<p>For development you may wish to stop a test at a given step leaving the browser open so you can continue manually. To do this simply set the value of the required Test Step to: </p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:enter:input:id:username</td>
+        <td>%STOP%</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
 <h4 id="generating-random-content-for-values">Generating Random Content for values</h4>
 <p>To generate random test content - say for email addresses….</p>
 <p>For a random number of 8 characters:<br/>
@@ -299,10 +299,15 @@ For a random alphanumeric of 3 characters:<br/>
 <code>%RANDOM_ALPHANUMERIC_3%</code><br/><br/>
 For a random alpha of 2 characters:<br/>
 <code>%RANDOM_ALPHA_2%</code><br/><br/></p>
-<p>They can also be combined with literals e.g:<br/>
-<code>%RANDOM_NUMERIC_8%@%RANDOM_ALPHA_2%.com</code><br/>
-might result in: <code>28750384@diH.com</code>
-<br/><br/></p>
+<p>They can also be combined with literals e.g:<br/></p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:enter:input:id:email</td>
+        <td>%RANDOM_NUMERIC_8%@%RANDOM_ALPHA_2%.com</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
 
 </div)
 
