@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SCS Test Docs</title>
+<link rel="stylesheet" type="text/css" href="/css/github_markdown.css">
+</head>
+<body>
+<div style="padding:20px" class="markdown-body">
+<h3 id="getting-started-building-testing">Getting Started Building Testing</h3>
+<p>Example Test Sheet:
+PIC 1</p>
+<h4 id="the-basics-structure">The Basics - Structure</h4>
+<ul>
+<li>Define your <strong>Tests</strong> in a <strong>Sheet</strong> in an Excel file</li>
+<li>A <strong>Sheet</strong> has a header row which defines the <strong>Test Steps</strong> as a series of actions to perform in executing the <strong>Test</strong></li>
+<li><strong>Tests</strong> are then defined in the rows underneath the header row and define values to be used for each <strong>Test Step</strong></li>
+<li>You can use multiple <strong>Sheets</strong> to add structure to your tests. E.g. “Happy Days Paths”, “Error Cases”</li>
+</ul>
+<h4 id="the-basics-test-steps-that-aren-t-really-steps-">The Basics - Test Steps (that aren’t really steps)</h4>
+<ul>
+<li><strong>Enabled</strong> The first column always defines whether the test should be run or not allows tests to be commented out easily: [true|false]</li>
+<li><strong>Comments</strong> Steps whose name starts with a <code>//</code> are ignored at execution time - these allow you to add columns for commenting your tests</li>
+</ul>
+<h4 id="the-basics-test-steps">The Basics - Test Steps</h4>
+<p>Steps follow the form:</p>
+<p>`page:action:detail:locatingAttribute:locatingAttributeValue</p>
+<p>e.g. <code>homePage:nav:link:href:/account/list</code> or <code>page6:enter:input:id:title</code></p>
+<ul>
+<li>The elements to a step are separated by the <code>:</code> character and define what sort of Web Element is to be used in the <strong>Test Step</strong> and what action should be taken.</li>
+<li>The Page attribute is arbitrary and for reference purpose only its recommended to use meaningful Page Names such as “homePage” or loginPage. </li>
+<li>Other Element are discussed in the following sections </li>
+</ul>
+<h4 id="creating-a-browser">Creating a browser</h4>
+<p>To start, create a browser to run your tests:</p>
+<table>
+<thead>
+<tr>
+<th><code>start:Browser:-:-:-</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ff</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: define the browser you want to test against options are <code>[ff, chrome, ie]</code></li>
+<li>Action: Browser    </li>
+<li>Detail: -    </li>
+<li>Locating Attribute: -</li>
+<li>Locating Attribute Value: -</li>
+</ul>
+<h4 id="navigation">Navigation</h4>
+<h5 id="go-to-a-defined-url">Go to a defined URL</h5>
+<table>
+<thead>
+<tr>
+<th><code>page0:nav:url:-:-</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>http://my.site.com</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: any valid URL</li>
+<li>Action: nav</li>
+<li>Detail: url    </li>
+<li>Locating Attribute: -</li>
+<li>Locating Attribute Value: -</li>
+</ul>
+<h4 id="click-on-a-button">Click on a button</h4>
+<table>
+<thead>
+<tr>
+<th><code>page1:nav:button:id:Login</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: <code>-</code></li>
+<li>Action: nav    </li>
+<li>Detail: button    </li>
+<li>Locating Attribute: Any attribute of the <code>&lt;button&gt;</code>web element </li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code></li>
+</ul>
+<h4 id="click-on-a-hyperlink">Click on a hyperlink</h4>
+<p>Example selecting link by attribute “href”:</p>
+<table>
+<thead>
+<tr>
+<th><code>page2:nav:a:href:/accounts/create</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example selecting link by text of link:</p>
+<table>
+<thead>
+<tr>
+<th><code>page2:nav:a:text:Accounts</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: <code>-</code></li>
+<li>Action: nav    </li>
+<li>Detail: a    </li>
+<li>Locating Attribute: Any attribute of the <code>&lt;a&gt;</code>web element OR <code>text</code></li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> or the text of the link where text is used as the <code>Location Attribute</code></li>
+</ul>
+<h4 id="working-with-forms">Working with Forms</h4>
+<h5 id="input-fields-">Input fields:</h5>
+<table>
+<thead>
+<tr>
+<th><code>page1:enter:input:id:username</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>myUserName</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code></li>
+<li>Action: enter    </li>
+<li>Detail: input    </li>
+<li>Locating Attribute: Any attribute of the <code>&lt;input&gt;</code>web element </li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> </li>
+</ul>
+<h5 id="text-areas-">Text Areas:</h5>
+<table>
+<thead>
+<tr>
+<th><code>page4:enter:textarea:name:address</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>10,School Lane</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code> line breaks can be included</li>
+<li>Action: enter    </li>
+<li>Detail: textarea    </li>
+<li>Locating Attribute: Any attribute of the <code>&lt;input&gt;</code>web element </li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> </li>
+</ul>
+<h5 id="select-fields-">Select fields:</h5>
+<table>
+<thead>
+<tr>
+<th><code>page1:enter:select:id:salutation</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dr</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: needs to specify the exact text of <code>value</code> attribute for the required entry in the select box. Note this may be different from the visible form</li>
+<li>Action: enter    </li>
+<li>Detail: select</li>
+<li>Locating Attribute: Any attribute of the <code>&lt;select&gt;</code>web element </li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> </li>
+</ul>
+<h5 id="radio-buttons-">Radio Buttons:</h5>
+<table>
+<thead>
+<tr>
+<th><code>page7:enter:radio:name:myRadioButton</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Coffee</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: needs to specify the exact text of <code>value</code> attribute for the radio button required</li>
+<li>Action: enter    </li>
+<li>Detail: radio</li>
+<li>Locating Attribute: name</li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h5 id="submitting-form-">Submitting Form:</h5>
+<table>
+<thead>
+<tr>
+<th><code>page3:submit:form:name:new</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: <code>-</code></li>
+<li>Action: enter    </li>
+<li>Detail: radio</li>
+<li>Locating Attribute: name</li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h4 id="checking-values-">Checking values:</h4>
+<p>Used to assert that an expected value is actually present in a given web element</p>
+<table>
+<thead>
+<tr>
+<th><code>page3:check:span:id:totalChargeable</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>512.76</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: The expected value</li>
+<li>Action: check</li>
+<li>Detail: span (note this is currently the only value supported (more to come soon…))</li>
+<li>Locating Attribute: Name of the attribute to identify the span in question</li>
+<li>Locating Attribute Value: Value of the location attribute</li>
+</ul>
+<h4 id="capturing-values-">Capturing values:</h4>
+<table>
+<thead>
+<tr>
+<th><code>page3:print:span:id:PolicyReference</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: -</li>
+<li>Action: print</li>
+<li>Detail: span (note this is currently the only value supported (more to come soon…))</li>
+<li>Locating Attribute: Name of the attribute to identify the span in question</li>
+<li>Locating Attribute Value: Value of the location attribute</li>
+</ul>
+<h4 id="forced-sleeps">Forced Sleeps</h4>
+<table>
+<thead>
+<tr>
+<th><code>page3:sleep:-:-:-</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2000</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Value: number of milliseconds to wait for</li>
+<li>Action: enter    </li>
+<li>Detail: radio</li>
+<li>Locating Attribute: name</li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h4 id="ignoring-steps">Ignoring steps</h4>
+<p>If you wish a test to ignore some steps of any type simply replace the value with. This can be useful for defining 
+<code>%IGNORE%</code><br/></p>
+<h4 id="generating-random-content-for-values">Generating Random Content for values</h4>
+<p>To generate random test content - say for email addresses….</p>
+<p>For a random number of 8 characters:<br/>
+<code>%RANDOM_NUMERIC_8%</code><br/><br/>
+For a random alphanumeric of 3 characters:<br/>
+<code>%RANDOM_ALPHANUMERIC_3%</code><br/><br/>
+For a random alpha of 2 characters:<br/>
+<code>%RANDOM_ALPHA_2%</code><br/><br/></p>
+<p>They can also be combined with literals e.g:<br/>
+<code>%RANDOM_NUMERIC_8%@%RANDOM_ALPHA_2%.com</code><br/>
+might result in: <code>28750384@diH.com</code>
+<br/><br/></p>
+
+</div)
+
+</body>
+</html>
