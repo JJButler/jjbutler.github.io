@@ -5,8 +5,8 @@
 <link rel="stylesheet" type="text/css" href="/css/github_markdown.css">
 </head>
 <body>
-<div style="padding:20px" class="markdown-body">
-<h3 id="getting-started-building-testing">Getting Started Building Testing</h3>
+<div style="padding:20px 100px 20px 20px" class="markdown-body">
+<h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -35,7 +35,7 @@
 </ul>
 <h4 id="the-basics-test-steps">The Basics - Test Steps</h4>
 <p>Steps follow the form:</p>
-<p>` page : action : detail : locatingAttribute : locatingAttributeValue ‘
+<p><code>page : action : detail : locatingAttribute : locatingAttributeValue</code>
 <br/> (Note the above includes spaces for illustration only)</p>
 <p>e.g. <code>homePage:nav:link:href:/account/list</code> or <code>page6:enter:input:id:title</code></p>
 <ul>
@@ -120,12 +120,28 @@
     <tr><td></td><td></td></tr>
 </table>
 
+<p>Example of selecting a link by variable text</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page2:nav:a:text:-</td>
+        <td>$LINK_TEXT</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+
 <ul>
-<li>Value: <code>-</code></li>
+<li>Value, either: <ul>
+<li><code>-</code></li>
+<li>The text of the link (can be populated via a variable)</li>
+</ul>
+</li>
 <li>Action: nav    </li>
 <li>Detail: a    </li>
 <li>Locating Attribute: Any attribute of the <code>&lt;a&gt;</code>web element OR <code>text</code></li>
-<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> or the text of the link where text is used as the <code>Location Attribute</code></li>
+<li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> or the text of the link where text is used as the <code>Location Attribute</code> or <code>-</code> where link text is specifed in Value</li>
 </ul>
 <h4 id="working-with-forms">Working with Forms</h4>
 <h5 id="input-fields-">Input fields:</h5>
@@ -139,7 +155,11 @@
 </table>
 
 <ul>
-<li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code></li>
+<li>Value, either: <ul>
+<li>text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code></li>
+<li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+</ul>
+</li>
 <li>Action: enter    </li>
 <li>Detail: input    </li>
 <li>Locating Attribute: Any attribute of the <code>&lt;input&gt;</code>web element </li>
@@ -156,7 +176,11 @@
 </table>
 
 <ul>
-<li>Value: text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code> line breaks can be included</li>
+<li>Value, either: <ul>
+<li>text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code> line breaks can be included</li>
+<li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+</ul>
+</li>
 <li>Action: enter    </li>
 <li>Detail: textarea    </li>
 <li>Locating Attribute: Any attribute of the <code>&lt;input&gt;</code>web element </li>
@@ -173,7 +197,11 @@
 </table>
 
 <ul>
-<li>Value: needs to specify the exact text of <code>value</code> attribute for the required entry in the select box. Note this may be different from the visible form</li>
+<li>Value, either: <ul>
+<li>needs to specify the exact text of <code>value</code> attribute for the required entry in the select box. Note this may be different from the visible form</li>
+<li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+</ul>
+</li>
 <li>Action: enter    </li>
 <li>Detail: select</li>
 <li>Locating Attribute: Any attribute of the <code>&lt;select&gt;</code>web element </li>
@@ -190,7 +218,11 @@
 </table>
 
 <ul>
-<li>Value: needs to specify the exact text of <code>value</code> attribute for the radio button required</li>
+<li>Value, either: <ul>
+<li>needs to specify the exact text of <code>value</code> attribute for the radio button required</li>
+<li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+</ul>
+</li>
 <li>Action: enter    </li>
 <li>Detail: radio</li>
 <li>Locating Attribute: name</li>
@@ -242,13 +274,44 @@
     <tr><td></td><td></td></tr>
 </table>
 
+<p>Or if you wish to record the output to be used pragmatically later on in the test….:</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:print:span:id:PolicyReference</td>
+        <td>$POLICY_REFERENCE</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
 <ul>
-<li>Value: -</li>
+<li>Value: - OR <code>$varName</code> to store the captured data into the variable <code>$varName</code>. Note stored variables are typically used in data entry steps</li>
 <li>Action: print</li>
-<li>Detail: span (note this is currently the only value supported (more to come soon…))</li>
-<li>Locating Attribute: Name of the attribute to identify the span in question</li>
+<li><p>Detail: [span|td] (note this is currently the only value supported (more to come soon…))</p>
+</li>
+<li><p>Locating Attribute: Name of the attribute to identify the span in question</p>
+</li>
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
+<p>OR- to locate elements by XPath </p>
+<ul>
+<li>Locating Attribute: xpath</li>
+<li>Locating Attribute Value: the value of the xpath of the element to be captured</li>
+</ul>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page3:print:td:xpath://*[@id=”Name_ileinner”]</td>
+        <td>$POLICY_REFERENCE</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+<h4 id="variables">Variables</h4>
+<p>Variables are denoted by <code>$MY_VAR</code> notation </p>
+<p>Typically the are created via the use of <code>print</code> Test Steps and used in input steps instead of literal values. See details of these steps for more details</p>
 <h4 id="forced-sleeps">Forced Sleeps</h4>
 <p>Simply pauses the execution of the test steps for a defined period</p>
 <table>
@@ -291,6 +354,34 @@
     <tr><td></td><td></td></tr>
 </table>
 
+
+<h4 id="multi-environment-support">Multi Environment Support</h4>
+<p>It makes sense to build tests that can be run in different environments (without copy and paste)
+To make test input environment specific do the following in your tests:</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page0:nav:url:-:-</td>
+        <td>
+        <pre>
+        <code>
+{
+    “envs”: {
+        “dev”: “dev.mysite.com”,
+        “uat”: “uat.mysite.com”,
+        “prd”: “www.mysite.com”,
+    }
+}
+
+        </code>
+        </pre>
+        </td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+<p>Then simply specify the env at test execution e.g.  <code>testIt myTestFile.xlsx env:dev</code> </p>
 <h4 id="generating-random-content-for-values">Generating Random Content for values</h4>
 <p>To generate random test content - say for email addresses….</p>
 <p>For a random number of 8 characters:<br/>
