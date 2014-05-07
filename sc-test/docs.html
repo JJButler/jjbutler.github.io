@@ -7,6 +7,7 @@
 <body>
 <div style="padding:20px 100px 20px 20px" class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
+<h5 id="version-1-3">Version 1.3</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -247,7 +248,7 @@
 <li>Locating Attribute Value: Value of the name attribute</li>
 </ul>
 <h4 id="checking-values-">Checking values:</h4>
-<p>Used to assert that an expected value is actually present in a given web element</p>
+<p>Used to assert that an expected value is actually present in a given web element. </p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -260,11 +261,23 @@
 <ul>
 <li>Value: The expected value</li>
 <li>Action: check</li>
-<li>Detail: span (note this is currently the only value supported (more to come soon…))</li>
+<li>Detail: any of the following elements:<ul>
+<li>input</li>
+<li>select</li>
+<li>textarea</li>
+<li>title</li>
+<li>span</li>
+<li>div</li>
+<li>th</li>
+<li>td</li>
+<li>legend</li>
+</ul>
+</li>
 <li>Locating Attribute: Name of the attribute to identify the span in question</li>
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
 <h4 id="capturing-values-">Capturing values:</h4>
+<p>Captures the value from a web element and write to Results file and or variable for use elsewhere </p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -288,10 +301,18 @@
 <ul>
 <li>Value: - OR <code>$varName</code> to store the captured data into the variable <code>$varName</code>. Note stored variables are typically used in data entry steps</li>
 <li>Action: print</li>
-<li><p>Detail: [span|td] (note this is currently the only value supported (more to come soon…))</p>
+<li>Detail: any of the following element names: <ul>
+<li>span</li>
+<li>div</li>
+<li>th</li>
+<li>td</li>
+<li>legend</li>
+<li>input</li>
+<li>select</li>
+<li>textarea</li>
+</ul>
 </li>
-<li><p>Locating Attribute: Name of the attribute to identify the span in question</p>
-</li>
+<li>Locating Attribute: Name of the attribute to identify the element in question</li>
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
 <p>OR- to locate elements by XPath </p>
@@ -312,6 +333,23 @@
 <h4 id="variables">Variables</h4>
 <p>Variables are denoted by <code>$MY_VAR</code> notation </p>
 <p>Typically the are created via the use of <code>print</code> Test Steps and used in input steps instead of literal values. See details of these steps for more details</p>
+<p>The scope of variables is at Sheet level to allow variables to be shared across tests if need be. However note that best practise is to make sure tests do not have dependencies on other tests and therefore sharing variables across tests is no recommended.</p>
+<h4 id="ajax">Ajax</h4>
+<p>Waits for any remaining ajax activities going on on the page before proceeding. Preferable to sleep!</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>DocComplete:waitForAjax:-:-:-:</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+
+
+
+
 <h4 id="forced-sleeps">Forced Sleeps</h4>
 <p>Simply pauses the execution of the test steps for a defined period</p>
 <table>
@@ -399,6 +437,31 @@ For a random alpha of 2 characters:<br/>
     </tr>
     <tr><td></td><td></td></tr>
 </table>
+
+
+<h4 id="including-tests-in-tests">Including Tests in Tests</h4>
+<p>You can write tests which you can include in other tests</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:include:./resources/test/regression_include.xlsx:core_data:Core_2_Data_Entry_1</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value: -</li>
+<li>Action: include</li>
+<li>Detail: file containing the included test</li>
+<li>Locating Attribute: Sheet name containing the included test</li>
+<li>Locating Attribute Value: Name of the test to include</li>
+</ul>
+<p>Note there are currently a number of limitations to this functionality:</p>
+<ul>
+<li>Commented “include” elements still pull in the included tests</li>
+<li>Includes pull in the width of the include </li>
+</ul>
 
 </div)
 
