@@ -354,7 +354,24 @@
 <h4 id="variables">Variables</h4>
 <p>Variables are denoted by <code>$MY_VAR</code> notation </p>
 <p>Typically the are created via the use of <code>print</code> Test Steps and used in input steps instead of literal values. See details of these steps for more details</p>
-<p>The scope of variables is at Sheet level to allow variables to be shared across tests if need be. However note that best practise is to make sure tests do not have dependencies on other tests and therefore sharing variables across tests is no recommended.</p>
+<p>The scope of variables is at Sheet level to allow variables to be shared across tests if need be. However note that best practise is to make sure tests do not have dependencies on other tests and therefore sharing variables across tests is not recommended.</p>
+<p>Note that variables can also be manually set via the following</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>Page1:code:setVar:$MY_VAR:-</td>
+        <td>554tTTK</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value: the Sring value of the variable being set (note double quotes should not be used)</li>
+<li>Action: code</li>
+<li>Detail: setVar</li>
+<li>Locating Attribute: name of the variable to set including the leading $ e.g. SMY_VAR </li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
 <h4 id="ajax">Ajax</h4>
 <p>Waits for any remaining ajax activities going on on the page before proceeding. Preferable to sleep!</p>
 <table>
