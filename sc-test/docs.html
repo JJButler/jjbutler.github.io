@@ -7,7 +7,7 @@
 <body>
 <div style="padding:20px 100px 20px 20px" class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-3">Version 1.3</h5>
+<h5 id="version-1-4">Version 1.4</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -137,6 +137,12 @@
 <li>Value, either: <ul>
 <li><code>-</code></li>
 <li>The text of the link (can be populated via a variable)</li>
+<li>Part of the text of the link when using:<ul>
+<li>startsWith(“My Link Text Starts Like…”)</li>
+<li>endsWith(“…and Ends Here”)</li>
+<li>contains(“the middle”)</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Action: nav    </li>
@@ -144,6 +150,8 @@
 <li>Locating Attribute: Any attribute of the <code>&lt;a&gt;</code>web element OR <code>text</code></li>
 <li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> or the text of the link where text is used as the <code>Location Attribute</code> or <code>-</code> where link text is specifed in Value</li>
 </ul>
+<h5 id="further-examples">Further Examples</h5>
+<p><img src="links.PNG" ></p>
 <h4 id="working-with-forms">Working with Forms</h4>
 <h5 id="input-fields-">Input fields:</h5>
 <table>
@@ -259,8 +267,19 @@
 </table>
 
 <ul>
-<li>Value: The expected value</li>
-<li>Action: check</li>
+<li><p>Value: </p>
+<ul>
+<li>The expected value OR</li>
+<li>Part of the text of the link when using:<ul>
+<li>startsWith(“My Link Text Starts Like…”)</li>
+<li>endsWith(“…and Ends Here”)</li>
+<li>contains(“the middle”)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Action: check</p>
+</li>
 <li>Detail: any of the following elements:<ul>
 <li>input</li>
 <li>select</li>
@@ -276,6 +295,8 @@
 <li>Locating Attribute: Name of the attribute to identify the span in question</li>
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
+<h5 id="further-examples">Further Examples</h5>
+<p><img src="check.PNG" ></p>
 <h4 id="capturing-values-">Capturing values:</h4>
 <p>Captures the value from a web element and write to Results file and or variable for use elsewhere </p>
 <table>
@@ -456,11 +477,6 @@ For a random alpha of 2 characters:<br/>
 <li>Detail: file containing the included test</li>
 <li>Locating Attribute: Sheet name containing the included test</li>
 <li>Locating Attribute Value: Name of the test to include</li>
-</ul>
-<p>Note there are currently a number of limitations to this functionality:</p>
-<ul>
-<li>Commented “include” elements still pull in the included tests</li>
-<li>Includes pull in the width of the include </li>
 </ul>
 
 </div)
