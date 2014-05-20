@@ -7,7 +7,7 @@
 <body>
 <div style="padding:20px 100px 20px 20px" class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-4">Version 1.4</h5>
+<h5 id="version-1-5">Version 1.5</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -20,10 +20,15 @@
 <h4 id="test-execution">Test Execution</h4>
 <ul>
 <li>Tests are executed sequentially reading tests in each tab and then in each column left to right</li>
-<li>The input file is then copied to show the results of the test<ul>
+<li>The input file is then copied to produce a colour coded output file showing the results of the tests which includes:<ul>
+<li>A summary sheet showing start and end time and duration of the test execution</li>
+<li>Copies of the original sheets with:<ul>
 <li>Green Cells - have executed successfully</li>
 <li>Red Cells - have failed and caused the remainder of that test to be skipped</li>
-<li>Green dots - show data captured from the test execution</li>
+<li>Pale Green - show data captured from the test execution</li>
+</ul>
+</li>
+<li>In addition screenshots of the state of the browser at the time a test failed are provided for analysis </li>
 </ul>
 </li>
 </ul>
@@ -84,6 +89,7 @@
 <li>Locating Attribute Value: -</li>
 </ul>
 <h4 id="click-on-a-button">Click on a button</h4>
+<p>==NOTE: this is for html elements that start <code>&lt;button</code> as opposed to elements that start <code>input</code> for the latter see the section on form submission==</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -237,7 +243,28 @@
 <li>Locating Attribute: name</li>
 <li>Locating Attribute Value: Value of the name attribute</li>
 </ul>
-<h5 id="submitting-form-">Submitting Form:</h5>
+<h5 id="check-boxes-">Check Boxes:</h5>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page2:enter:checkbox:name:hasCar</td>
+        <td>true</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value, either: <ul>
+<li>specify the exact text of <code>value</code> attribute for the check box</li>
+<li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step </li>
+</ul>
+</li>
+<li>Action: enter    </li>
+<li>Detail: checkbox</li>
+<li>Locating Attribute: name</li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h5 id="submitting-form-clicking-an-input-button-">Submitting Form / Clicking an <code>&lt;Input</code> button:</h5>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -284,6 +311,7 @@
 <li>input</li>
 <li>select</li>
 <li>textarea</li>
+<li>checkbox</li>
 <li>title</li>
 <li>span</li>
 <li>div</li>
@@ -475,6 +503,87 @@ For a random alpha of 2 characters:<br/>
     </tr>
     <tr><td></td><td></td></tr>
 </table>
+
+
+
+<h4 id="iframes">IFrames</h4>
+<p>If you need to test a page that sits within an iframe of a parent page you must specify that the element is in the iframe. This is done by defining the name of the IFrame to be used as a suffix to your page name and seperated by the <code>~</code> sign. Note this works for any step. 
+For example</p>
+<table>
+    <tr><td></td><td></td></tr>
+
+    <tr>
+        <td>//This uses the <code>firstname</code> field on the original page </td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page2:enter:input:name:firstname</td>
+        <td>Jeremy</td>
+    </tr>
+
+    <tr>
+        <td>//This uses the <code>firstname</code> field on the page displayed in the iFrame named <code>theFrame</code> on the original page </td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page2~theFrame:enter:input:name:firstname</td>
+        <td>Jeremy</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+
+<h4 id="working-with-multiple-windows">Working with multiple Windows</h4>
+<p>If your page opens other pages you may need to interact with the new page and then potentially return to the first page.
+This is done in a similar way to working with IFrames and requires the <code>Title</code> of the page required to be defined when working with a window that is not the main window.</p>
+<p>Note all wndows will be closed when the page completes. </p>
+<p>The following example shows interaction on the original window followed by an additional window and then the original window again</p>
+<table>
+    <tr><td></td><td></td></tr>
+
+    <tr>
+        <td>//Do form entry on the main page</td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page2:enter:input:name:firstname</td>
+        <td>Jeremy</td>
+    </tr>
+
+    <tr>
+        <td>page2:enter:input:name:surname</td>
+        <td>Butler</td>
+    </tr>
+
+
+    <tr>
+        <td>///Check the new window welcomes me correctly</td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page2-&gt;Promotion Window:check:span:name:welcomeBanner</td>
+        <td>Welcome Jeremy Butler!</td>
+    </tr>
+
+    <tr>
+        <td>//Continue with form entry on the main page</td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page2:enter:input:name:email</td>
+        <td>Jeremy@scs.uk.com</td>
+    </tr>
+
+    <tr><td></td><td></td></tr>
+</table>
+
+
 
 
 <h4 id="including-tests-in-tests">Including Tests in Tests</h4>
