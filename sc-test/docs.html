@@ -7,7 +7,7 @@
 <body>
 <div style="padding:20px 100px 20px 20px" class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-5">Version 1.5</h5>
+<h5 id="version-1-6">Version 1.6</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -163,9 +163,31 @@
 <table>
     <tr><td></td><td></td></tr>
     <tr>
+        <td>//Basic text entry</td>
+        <td>-</td>
+    </tr>
+
+    <tr>
         <td>page1:enter:input:id:username</td>
         <td>myUserName</td>
     </tr>
+
+    <tr>
+        <td>//Clear the field first and then set the text</td>
+        <td>-</td>
+    </tr>
+
+    <tr>
+        <td>page1:enter:input:id:age</td>
+        <td>%BLANK%</td>
+    </tr>
+
+    <tr>
+        <td>page1:enter:input:id:age</td>
+        <td>35</td>
+    </tr>
+
+
     <tr><td></td><td></td></tr>
 </table>
 
@@ -173,6 +195,7 @@
 <li>Value, either: <ul>
 <li>text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code></li>
 <li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+<li>%BLANK% to blank out the contents of the input field</li>
 </ul>
 </li>
 <li>Action: enter    </li>
@@ -194,6 +217,7 @@
 <li>Value, either: <ul>
 <li>text to be entered into the form element. Ensure in Excel the format of the cell is set to <code>text</code> line breaks can be included</li>
 <li>any variable in the for <code>$MY_VAR</code> typically set by a print Test Step</li>
+<li>%BLANK% to blank out the contents of the input field</li>
 </ul>
 </li>
 <li>Action: enter    </li>
