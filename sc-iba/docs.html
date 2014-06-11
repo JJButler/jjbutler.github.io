@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SC-IBA WebService API</title>
+<link rel="stylesheet" type="text/css" href="/css/github_markdown.css">
+</head>
+<body>
+<div style="padding:20px 100px 20px 20px" class="markdown-body">
+<p>This document describes the different APIs exposed as RESTful web services</p>
+<h1 id="account-api">Account API</h1>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/account/$account</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Supported Account Types:</strong> (If the <code>accountType</code> attribute is not specified a skeleton account <code>&lt;Account Skeleton&gt;</code> will be created)<ul>
+<li>Client - Corporate</li>
+<li>Client - Person</li>
+<li>Commission Agent</li>
+<li>ThirdParty - Corporate</li>
+<li>ThirdParty - Person</li>
+</ul>
+</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">accountType</span>": <span class="value"><span class="string">"CLIENT_PERSON"</span></span>,
+    "<span class="attribute">addresses</span>": <span class="value">[
+    {
+        "<span class="attribute">address1</span>": <span class="value"><span class="string">"1, Dizzy Heights"</span></span>,
+        "<span class="attribute">address2</span>": <span class="value"><span class="string">"The Avenue"</span></span>,
+        "<span class="attribute">address3</span>": <span class="value"><span class="string">"Central District"</span></span>,
+        "<span class="attribute">city</span>": <span class="value"><span class="string">"Somewhereville"</span></span>,
+        "<span class="attribute">county</span>": <span class="value"><span class="string">"Gloucestershire"</span></span>,
+        "<span class="attribute">country</span>": <span class="value"><span class="string">"United Kingdom"</span></span>,
+        "<span class="attribute">postcode</span>": <span class="value"><span class="string">"ST1 2AB"</span>
+    </span>},
+    {
+        "<span class="attribute">address1</span>": <span class="value"><span class="string">"2, Othertown"</span></span>,
+        "<span class="attribute">postcode</span>": <span class="value"><span class="string">"OT2 4AB"</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">bankAccounts</span>": <span class="value">[
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"PP BA 1"</span></span>,
+        "<span class="attribute">description</span>": <span class="value"><span class="string">"Primary bank account"</span></span>,
+        "<span class="attribute">bank</span>": <span class="value"><span class="string">"Santander"</span></span>,
+        "<span class="attribute">accountNumber</span>": <span class="value"><span class="string">"11111111"</span></span>,
+        "<span class="attribute">sortCode</span>": <span class="value"><span class="string">"01-02-03"</span>
+    </span>},
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"PP BA 2"</span></span>,
+        "<span class="attribute">accountNumber</span>": <span class="value"><span class="string">"22222222"</span></span>,
+        "<span class="attribute">sortCode</span>": <span class="value"><span class="string">"02-03-04"</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">dob</span>": <span class="value"><span class="string">"1978-01-08T00:00:00Z"</span></span>,
+    "<span class="attribute">email</span>": <span class="value"><span class="string">"jb@jltgroup.com"</span></span>,
+    "<span class="attribute">firstName</span>": <span class="value"><span class="string">"Jeremy"</span></span>,
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"Mr J Butler"</span></span>,
+    "<span class="attribute">surname</span>": <span class="value"><span class="string">"Butler"</span></span>,
+    "<span class="attribute">title</span>": <span class="value"><span class="string">"Mr"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/account/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="policy-api">Policy API</h1>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/account/$account/policy/$policy</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001/policy/POLICY0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">lpn</span>": <span class="value"><span class="string">"PTS000001"</span></span>,
+    "<span class="attribute">inceptionDate</span>": <span class="value"><span class="string">"2012-12-07T15:00:00.0Z"</span></span>,
+    "<span class="attribute">expiryDate</span>": <span class="value"><span class="string">"2013-12-07T00:00:00.0Z"</span></span>,
+    "<span class="attribute">renewalCount</span>": <span class="value"><span class="number">0</span></span>,
+    "<span class="attribute">productVersion</span>": <span class="value">{
+    "<span class="attribute">product</span>": <span class="value"><span class="string">"RET"</span></span>,
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"1"</span>
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/policy/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="policy-event-api">Policy Event API</h1>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/account/$account/policy/$policy/policyEvent/$policyEvent</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001/policy/POLICY0001/policy-event/EVENT0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"NB"</span></span>,
+    "<span class="attribute">mtaCount</span>": <span class="value"><span class="number">0</span></span>,
+    "<span class="attribute">effectiveDate</span>": <span class="value"><span class="string">"2012-12-07T15:00:00.0Z"</span></span>,
+    "<span class="attribute">remittanceDetails</span>": <span class="value"><span class="string">"templateID=CLM001&amp;param1=50.00&amp;param2=100"</span></span>,
+    "<span class="attribute">transaction</span>": <span class="value">{
+    "<span class="attribute">methodOfPayment</span>": <span class="value"><span class="string">"Cash"</span>
+    </span>}</span>,
+    "<span class="attribute">premium</span>": <span class="value">{
+    "<span class="attribute">totalGrossPremium</span>": <span class="value"><span class="number">32.08</span></span>,
+    "<span class="attribute">totalIPT</span>": <span class="value"><span class="number">1.92</span></span>,
+    "<span class="attribute">totalGrossPremiumPlusIPT</span>": <span class="value"><span class="number">34</span></span>,
+    "<span class="attribute">totalChargeable</span>": <span class="value"><span class="number">46.5</span></span>,
+    "<span class="attribute">elements</span>": <span class="value">[
+        {
+        "<span class="attribute">$id</span>": <span class="value"><span class="string">"1"</span></span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">1.92</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"IPT"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">7.86</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Underwriter Net Premium"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">0.57</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Payaway Commission"</span></span>,
+        "<span class="attribute">ibaAccountRef</span>": <span class="value"><span class="string">"AGT0001"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">23.65</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Our Commission"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">12.5</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Our Admin Fee"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">insured</span>": <span class="value">[
+        {
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">sumInsured</span>": <span class="value"><span class="number">2000</span></span>,
+        "<span class="attribute">excess</span>": <span class="value"><span class="number">50</span>
+        </span>}
+    ]
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/policyEvent/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="claim-api">Claim API</h1>
+<h2 id="insert-update-claim">Insert/Update Claim</h2>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/policy/$policy/claim/$claim</li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001</code></li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">dateOfLoss</span>": <span class="value"><span class="string">"2013-01-01T00:00:00.0Z"</span></span>,
+    "<span class="attribute">claimSummary</span>": <span class="value"><span class="string">"Camera stolen"</span></span>,
+    "<span class="attribute">claimDetails</span>": <span class="value"><span class="string">"Taken from back of chair while eating in restaurant."</span></span>,
+    "<span class="attribute">insured</span>": <span class="value"><span class="literal">true</span></span>,
+    "<span class="attribute">state</span>": <span class="value"><span class="string">"OPEN"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claim/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="update-state">Update State</h2>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/policy/$policy/claim/$claim/state</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/state</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">state</span>": <span class="value"><span class="string">"CLOSED"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claim/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="update-reserve-amount">Update Reserve Amount</h2>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/policy/$policy/claim/$claim/update</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/update</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">date</span>": <span class="value"><span class="string">"2013-01-08T09:11:52.0Z"</span></span>,
+    "<span class="attribute">reserveAmounts</span>": <span class="value">[
+    {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">1000</span></span>,
+        "<span class="attribute">fees</span>": <span class="value"><span class="number">200</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+        "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+    </span>}
+    ]
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claimEvent/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="settlement">Settlement</h2>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/policy/$policy/claim/$claim/settlement</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/settlement</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">date</span>": <span class="value"><span class="string">"2013-01-08T09:11:52.0Z"</span></span>,
+    "<span class="attribute">reserveAmounts</span>": <span class="value">[
+    {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">400</span></span>,
+        "<span class="attribute">fees</span>": <span class="value"><span class="number">80</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+        "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">settlement</span>": <span class="value">{
+    "<span class="attribute">payeeAccountRef</span>": <span class="value"><span class="string">"CLT0003"</span></span>,
+    "<span class="attribute">invoiceRef</span>": <span class="value"><span class="string">"REPAIR0001"</span></span>,
+    "<span class="attribute">exGratia</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">insurerPaid</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">payNetOfOutstandingLoan</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">elements</span>": <span class="value">[
+        {
+        "<span class="attribute">$id</span>": <span class="value"><span class="string">"1"</span></span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">20</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"VAT"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">100</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Fees"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">600</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Amount"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value">-<span class="number">50</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Excess"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>}
+    ]
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claimEvent/show/100007"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="binder-api">Binder API</h1>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/binder/$binder</li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/binder/TST2014</code></li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">startDate</span>": <span class="value"><span class="string">"2012-01-01T00:00:00.0Z"</span></span>,
+    "<span class="attribute">endDate</span>": <span class="value"><span class="string">"2012-12-31T00:00:00.0Z"</span></span>,
+    "<span class="attribute">year</span>": <span class="value"><span class="number">2012</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/binder/show/100008"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="product-api">Product API</h1>
+<ul>
+<li><strong>URL endpoint:</strong> /ws/division/$division/product/$productCode/version</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/product/PTG/version</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"1.0"</span></span>,
+    "<span class="attribute">policySections</span>": <span class="value">[
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"StructureAndAccessories"</span></span>,
+        "<span class="attribute">covers</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Structure"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>},
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Accessories"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>}
+        ]
+    </span>},
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Contents"</span></span>,
+        "<span class="attribute">covers</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Contents"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>}
+        ]
+    </span>}
+    ]
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/productVersion/show/1"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+</div)
+
+</body>
+</html>
