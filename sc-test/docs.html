@@ -2,12 +2,12 @@
 <html>
 <head>
 <title>SCS Test Docs</title>
-<link rel="stylesheet" type="text/css" href="/css/github_markdown.css">
+<link rel="stylesheet" type="text/css" href="/css/gollum_template.css">
 </head>
 <body>
-<div style="padding:20px 100px 20px 20px" class="markdown-body">
+<div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-7">Version 1.7</h5>
+<h5 id="version-1-9">Version 1.9</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -716,6 +716,32 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-9-3">v1.9.3</h4>
+<ul>
+<li>Fixes bug with includes being processed multiple times when the last line in a test file is an include</li>
+<li>Fixes bug where specifiying test steps that use element names that contain the text “Include” was causing the tests not to load.</li>
+</ul>
+<h4 id="v1-9-2">v1.9.2</h4>
+<ul>
+<li>Various minor bug fixes</li>
+</ul>
+<h4 id="v1-9-1">v1.9.1</h4>
+<ul>
+<li>Fixed bug where formulas in imported tests were not working reliably</li>
+<li>An “Intermediate” output file now show the state of the spreadsheet created before its executed. It is of the form “regression_exe_Jun_30_08.47.xlsx”</li>
+<li>Cleaned up debug </li>
+</ul>
+<h4 id="v1-9">v1.9</h4>
+<ul>
+<li>Fix: Formulas in included files not working.</li>
+<li>Fix: ID selector was failing for div’s and input’s on some pages (bug introduced on v1.8).</li>
+</ul>
+<h4 id="v1-8">v1.8</h4>
+<ul>
+<li>Fix: WaitForElement was only working for input elements, fixed for any web element.</li>
+<li>Fix: Summary generation sometimes throws an exception and the result spreadsheet isn’t saved on disk.</li>
+<li>Improvement: Speed improvements for check and print operations.</li>
+</ul>
 <h4 id="v1-7">v1.7</h4>
 <p> (For details see the main documentation for the relevant test step)</p>
 <ul>
