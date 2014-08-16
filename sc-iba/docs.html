@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SC-IBA WebService API</title>
+<link rel="stylesheet" type="text/css" href="/css/github_markdown.css">
+</head>
+<body>
+<div style="padding:20px 100px 20px 20px" class="markdown-body">
+<h1 id="table-of-contents">Table Of Contents</h1>
+<ul>
+<li><a href="#account">Account API</a></li>
+<li><a href="#policy">Policy API</a></li>
+<li><a href="#policyEvent">Policy Event API</a></li>
+<li><a href="#product">Product API</a></li>
+<li><a href="#binder">Binder API</a></li>
+<li><a href="#claim">Claim API</a></li>
+</ul>
+<p>This document describes the different APIs exposed as RESTful web services</p>
+<p><a id="account"></a></p>
+<h1 id="account-api">Account API</h1>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create or update accounts in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/account/$account</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$account</code>: a string that identifies the account code in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>accountType</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Account type to create or update, valid values are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>CLIENT_CORP: for client corporate accounts</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>CLIENT_PERSON: for client person accounts</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>COMMISSION_AGENT: for commission agent accounts</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>THIRD_PARTY_CORP: for third-party corporate accounts</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>THIRD_PARTY_PERSON: for third-party person accounts</td>
+</tr>
+<tr>
+<td><em>controlAccount</em></td>
+<td>String representing a Sciba control account code</td>
+<td>NO</td>
+<td>Control account to link against the account</td>
+</tr>
+<tr>
+<td><em>addresses</em></td>
+<td>List of addresses where each address is specified by:</td>
+<td>NO</td>
+<td>List of addresses associated to the account. <strong>NB: if the account already exists and a list of addresses is specified the current addresses in Sciba will be deleted and updated with the new list.</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>-address1: String</td>
+<td>YES</td>
+<td>First line of address</td>
+</tr>
+<tr>
+<td></td>
+<td>-address2: String</td>
+<td>NO</td>
+<td>Second line of address</td>
+</tr>
+<tr>
+<td></td>
+<td>-address3: String</td>
+<td>NO</td>
+<td>Third line of address</td>
+</tr>
+<tr>
+<td></td>
+<td>-city: String</td>
+<td>NO</td>
+<td>City name</td>
+</tr>
+<tr>
+<td></td>
+<td>-county: String</td>
+<td>NO</td>
+<td>County name</td>
+</tr>
+<tr>
+<td></td>
+<td>-country: String</td>
+<td>NO</td>
+<td>Country name</td>
+</tr>
+<tr>
+<td></td>
+<td>-postcode: String</td>
+<td>YES</td>
+<td>Pstal code</td>
+</tr>
+<tr>
+<td><em>bankAccounts</em></td>
+<td>List of bank accounts where each bank account is specified by:</td>
+<td>NO</td>
+<td>List of bank accounts linked to the account. <strong>NB: if the account already exists and a list of bank accounts is provided in the request the current bank account list in Sciba will be deleted and updated with the new list.</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Account’s name</td>
+</tr>
+<tr>
+<td></td>
+<td>-sortCode: String</td>
+<td>YES</td>
+<td>Account’s sortcode</td>
+</tr>
+<tr>
+<td></td>
+<td>-accountNumber: String</td>
+<td>YES</td>
+<td>Account’s number</td>
+</tr>
+<tr>
+<td></td>
+<td>-description: String</td>
+<td>NO</td>
+<td>Account’s description</td>
+</tr>
+<tr>
+<td></td>
+<td>-bank: String</td>
+<td>NO</td>
+<td>Bank’s name</td>
+</tr>
+<tr>
+<td><em>name</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Name for the account in Sciba</td>
+</tr>
+<tr>
+<td><em>email</em></td>
+<td>String</td>
+<td>NO</td>
+<td>Email associated to the account</td>
+</tr>
+<tr>
+<td><em>title</em></td>
+<td>String</td>
+<td>NO</td>
+<td>Account’s holder title. NB only applies to ‘CLIENT_PERSON’ account types</td>
+</tr>
+<tr>
+<td><em>firstName</em></td>
+<td>String</td>
+<td>NO</td>
+<td>Account’s firstname. NB only applies to ‘CLIENT_PERSON’ account types</td>
+</tr>
+<tr>
+<td><em>surname</em></td>
+<td>String</td>
+<td>NO</td>
+<td>Account’s surname. NB only applies to ‘CLIENT_PERSON’ account types</td>
+</tr>
+<tr>
+<td><em>dob</em></td>
+<td>Date</td>
+<td>NO</td>
+<td>Account’s dob. NB only applies to ‘CLIENT_PERSON’ account types</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 1978-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 1978-01-08T00:00:00Z)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">accountType</span>": <span class="value"><span class="string">"CLIENT_PERSON"</span></span>,
+    "<span class="attribute">addresses</span>": <span class="value">[
+    {
+        "<span class="attribute">address1</span>": <span class="value"><span class="string">"1, Dizzy Heights"</span></span>,
+        "<span class="attribute">address2</span>": <span class="value"><span class="string">"The Avenue"</span></span>,
+        "<span class="attribute">address3</span>": <span class="value"><span class="string">"Central District"</span></span>,
+        "<span class="attribute">city</span>": <span class="value"><span class="string">"Somewhereville"</span></span>,
+        "<span class="attribute">county</span>": <span class="value"><span class="string">"Gloucestershire"</span></span>,
+        "<span class="attribute">country</span>": <span class="value"><span class="string">"United Kingdom"</span></span>,
+        "<span class="attribute">postcode</span>": <span class="value"><span class="string">"ST1 2AB"</span>
+    </span>},
+    {
+        "<span class="attribute">address1</span>": <span class="value"><span class="string">"2, Othertown"</span></span>,
+        "<span class="attribute">postcode</span>": <span class="value"><span class="string">"OT2 4AB"</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">bankAccounts</span>": <span class="value">[
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"PP BA 1"</span></span>,
+        "<span class="attribute">description</span>": <span class="value"><span class="string">"Primary bank account"</span></span>,
+        "<span class="attribute">bank</span>": <span class="value"><span class="string">"Santander"</span></span>,
+        "<span class="attribute">accountNumber</span>": <span class="value"><span class="string">"11111111"</span></span>,
+        "<span class="attribute">sortCode</span>": <span class="value"><span class="string">"01-02-03"</span>
+    </span>},
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"PP BA 2"</span></span>,
+        "<span class="attribute">accountNumber</span>": <span class="value"><span class="string">"22222222"</span></span>,
+        "<span class="attribute">sortCode</span>": <span class="value"><span class="string">"02-03-04"</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">dob</span>": <span class="value"><span class="string">"1978-01-08T00:00:00Z"</span></span>,
+    "<span class="attribute">email</span>": <span class="value"><span class="string">"jb@jltgroup.com"</span></span>,
+    "<span class="attribute">firstName</span>": <span class="value"><span class="string">"Jeremy"</span></span>,
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"Mr J Butler"</span></span>,
+    "<span class="attribute">surname</span>": <span class="value"><span class="string">"Butler"</span></span>,
+    "<span class="attribute">title</span>": <span class="value"><span class="string">"Mr"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/account/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="product"></a></p>
+<h1 id="product-api">Product API</h1>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create or update products in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/product/$productCode/version</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$productCode</code>: a string that identifies the product code in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>name</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Product version name</td>
+</tr>
+<tr>
+<td><em>policySections</em></td>
+<td>List of policy sections where each policy section is defined by:</td>
+<td>YES</td>
+<td>List of policy sections that define the product.</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-covers: list of covers where each cover is defined by:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Cover’s name</td>
+</tr>
+<tr>
+<td></td>
+<td>-binderSection: binder for that cover defined by:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-binder: String</td>
+<td>YES</td>
+<td>Binder’s name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Binder’s section name</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/product/PTG/version</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"1.0"</span></span>,
+    "<span class="attribute">policySections</span>": <span class="value">[
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"StructureAndAccessories"</span></span>,
+        "<span class="attribute">covers</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Structure"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>},
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Accessories"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>}
+        ]
+    </span>},
+    {
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Contents"</span></span>,
+        "<span class="attribute">covers</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Contents"</span></span>,
+            "<span class="attribute">binderSection</span>": <span class="value">{
+            "<span class="attribute">binder</span>": <span class="value"><span class="string">"B10090039/12"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Material Damage"</span>
+            </span>}
+        </span>}
+        ]
+    </span>}
+    ]
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/productVersion/show/1"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="policy"></a></p>
+<h1 id="policy-api">Policy API</h1>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create or update policies in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/account/$account/policy/$policy</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$account</code>: a string that identifies the account code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>lpn</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Long Policy Number which helps to track renewals for a policy</td>
+</tr>
+<tr>
+<td><em>inceptionDate</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Policy’s inception date.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2014-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2014-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>expiryDate</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Policy’s expiry date.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2015-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2015-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>productVersion</em></td>
+<td>JSON object which specifies:</td>
+<td>YES</td>
+<td>Links the policy to a specific product version in Sciba</td>
+</tr>
+<tr>
+<td></td>
+<td>-product: String</td>
+<td>YES</td>
+<td>Product’s name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Version’s name</td>
+</tr>
+<tr>
+<td><em>renewalCount</em></td>
+<td>Integer</td>
+<td>YES</td>
+<td>Identifies whether the policy is a NB (renewalCount == 0) or a RN (renewalCount &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001/policy/POLICY0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">lpn</span>": <span class="value"><span class="string">"PTS000001"</span></span>,
+    "<span class="attribute">inceptionDate</span>": <span class="value"><span class="string">"2012-12-07T15:00:00.0Z"</span></span>,
+    "<span class="attribute">expiryDate</span>": <span class="value"><span class="string">"2013-12-07T00:00:00.0Z"</span></span>,
+    "<span class="attribute">renewalCount</span>": <span class="value"><span class="number">0</span></span>,
+    "<span class="attribute">productVersion</span>": <span class="value">{
+    "<span class="attribute">product</span>": <span class="value"><span class="string">"RET"</span></span>,
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"1"</span>
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/policy/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="policyEvent"></a></p>
+<h1 id="policy-event-api">Policy Event API</h1>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create policy events in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/account/$account/policy/$policy/policyEvent/$policyEvent</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$account</code>: a string that identifies the account code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+<li><code>$policyEvent</code>: a string that identifies the policy event reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>type</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Police event type, valid values are: NB (New Business), RN (Renewal), MTA (MTA), CNCL (Cancellation)</td>
+</tr>
+<tr>
+<td><em>effectiveDate</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Policy event effective date.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2014-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2014-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>remittanceDetails</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Key-value pairs separate by ampersand which are used for remittance notification</td>
+</tr>
+<tr>
+<td><em>transaction</em></td>
+<td>JSON object which specifies:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-methodOfPayment: String</td>
+<td>YES</td>
+<td>Transaction’s method of payment. Valid values are: CASH (Cash), DEBIT_CARD (Card - Debit), CREDIT_CARD (Card - Credit), GCARD (Card - Unknow), CHEQUE (Cheque), BACS (BACS), DIRECT_DEBIT (Direct Debit), POSTAL_ORDER (Postal Order)</td>
+</tr>
+<tr>
+<td><em>premium</em></td>
+<td>JSON object which specifies:</td>
+<td>YES</td>
+<td>Gives full details of the premium breakdown, i.e. breakdown per cover’s product and type including what is insured under which cover</td>
+</tr>
+<tr>
+<td></td>
+<td>-totalGrossPremium: Integer</td>
+<td>YES</td>
+<td>Amount in pence for the total premium (gross)</td>
+</tr>
+<tr>
+<td></td>
+<td>-totalIPT: Integer</td>
+<td>YES</td>
+<td>Amount in pence for the total IPT</td>
+</tr>
+<tr>
+<td></td>
+<td>-totalGrossPremiumPlusIPT: Integer</td>
+<td>YES</td>
+<td>Amount in pence for the total gross + IPT</td>
+</tr>
+<tr>
+<td></td>
+<td>-totalChargeable: Integer</td>
+<td>YES</td>
+<td>Amount in pence for the total chargeable (inc. fees)</td>
+</tr>
+<tr>
+<td></td>
+<td>-elements: array to provide a detailed breakdown of the chargeable amount as:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>+$id: Integer</td>
+<td>YES/NO</td>
+<td>Required for IPT type elements which identifies the tax element. Ignored for any other element type.</td>
+</tr>
+<tr>
+<td></td>
+<td>+taxed: JSON object which links element’s amount to tax element when the element is liable to IPT</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-$ref: Integer</td>
+<td>YES</td>
+<td>Required for taxable elements and refers to the id of the tax element for the same cover</td>
+</tr>
+<tr>
+<td></td>
+<td>+amount: Integer</td>
+<td>YES</td>
+<td>Amount in pence for this element</td>
+</tr>
+<tr>
+<td></td>
+<td>+type: String</td>
+<td>YES</td>
+<td>Identifies the element’s type: ‘Underwriter Net Premium’, ‘Our Commission’, ‘IPT’</td>
+</tr>
+<tr>
+<td></td>
+<td>+cover: JSON object which gives information about the element’s cover by specifying:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-policySection: String</td>
+<td>YES</td>
+<td>Product’s policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Product’s cover name</td>
+</tr>
+<tr>
+<td></td>
+<td>-insured: array to provide a detailed breakdown of the sum insured as:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>+sumInsured: Integer</td>
+<td>YES</td>
+<td>Sum insured amount in POUNDS</td>
+</tr>
+<tr>
+<td></td>
+<td>+excess: Integer</td>
+<td>YES</td>
+<td>Excess amount in POUNDS</td>
+</tr>
+<tr>
+<td></td>
+<td>+cover: JSON object which gives information about the insured element’s cover by specifying:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-policySection: String</td>
+<td>YES</td>
+<td>Product’s policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Product’s cover name</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/account/TST0001/policy/POLICY0001/policy-event/EVENT0001</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"NB"</span></span>,
+    "<span class="attribute">effectiveDate</span>": <span class="value"><span class="string">"2012-12-07T15:00:00.0Z"</span></span>,
+    "<span class="attribute">remittanceDetails</span>": <span class="value"><span class="string">"templateID=CLM001&amp;param1=50.00&amp;param2=100"</span></span>,
+    "<span class="attribute">transaction</span>": <span class="value">{
+    "<span class="attribute">methodOfPayment</span>": <span class="value"><span class="string">"Cash"</span>
+    </span>}</span>,
+    "<span class="attribute">premium</span>": <span class="value">{
+    "<span class="attribute">totalGrossPremium</span>": <span class="value"><span class="number">32.08</span></span>,
+    "<span class="attribute">totalIPT</span>": <span class="value"><span class="number">1.92</span></span>,
+    "<span class="attribute">totalGrossPremiumPlusIPT</span>": <span class="value"><span class="number">34</span></span>,
+    "<span class="attribute">totalChargeable</span>": <span class="value"><span class="number">46.5</span></span>,
+    "<span class="attribute">elements</span>": <span class="value">[
+        {
+        "<span class="attribute">$id</span>": <span class="value"><span class="string">"1"</span></span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">1.92</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"IPT"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">7.86</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Underwriter Net Premium"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">0.57</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Payaway Commission"</span></span>,
+        "<span class="attribute">ibaAccountRef</span>": <span class="value"><span class="string">"AGT0001"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">23.65</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Our Commission"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">12.5</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Our Admin Fee"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">insured</span>": <span class="value">[
+        {
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">sumInsured</span>": <span class="value"><span class="number">2000</span></span>,
+        "<span class="attribute">excess</span>": <span class="value"><span class="number">50</span>
+        </span>}
+    ]
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/policyEvent/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="binder"></a></p>
+<h1 id="binder-api">Binder API</h1>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create or update binders in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/binder/$binder</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$binder</code>: a string that identifies the binder code in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>startDate</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Binder’s start date</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2015-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2015-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>endDate</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Binder’s end date</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2015-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2015-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>year</em></td>
+<td>Integer</td>
+<td>YES</td>
+<td>Binder’s year</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/binder/TST2014</code></li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">startDate</span>": <span class="value"><span class="string">"2012-01-01T00:00:00.0Z"</span></span>,
+    "<span class="attribute">endDate</span>": <span class="value"><span class="string">"2012-12-31T00:00:00.0Z"</span></span>,
+    "<span class="attribute">year</span>": <span class="value"><span class="number">2012</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/binder/show/100008"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="claim"></a></p>
+<h1 id="claim-api">Claim API</h1>
+<h2 id="insert-update-claim">Insert/Update Claim</h2>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create or update claims in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/policy/$policy/claim/$claim</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+<li><code>$claim</code>: a string that identifies the claim reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>dateOfLoss</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Claim’s date of loss</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2014-04-08T12:23:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2014-04-08T12:23:00Z)</td>
+</tr>
+<tr>
+<td><em>claimSummary</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Claim’s summary</td>
+</tr>
+<tr>
+<td><em>claimDetails</em></td>
+<td>String</td>
+<td>NO</td>
+<td>Claim’s details</td>
+</tr>
+<tr>
+<td><em>insured</em></td>
+<td>Boolean</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td><em>totalLoss</em></td>
+<td>Boolean</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td><em>state</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Claim’s state, valid values are: ‘OPEN’ and ‘CLOSED’</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>NB: if the claim number <code>$claim</code> already exists in Sciba the claim record will be updated, so the current claim details will be overwritten with the new ones. Therefore, when using this endpoint it is advisable to always provide all the available details.</strong></p>
+</li>
+<li><p><strong>Request example:</strong></p>
+<ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001</code></li>
+<li><strong>Method:</strong> PUT</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">dateOfLoss</span>": <span class="value"><span class="string">"2013-01-01T00:00:00.0Z"</span></span>,
+    "<span class="attribute">claimSummary</span>": <span class="value"><span class="string">"Camera stolen"</span></span>,
+    "<span class="attribute">claimDetails</span>": <span class="value"><span class="string">"Taken from back of chair while eating in restaurant."</span></span>,
+    "<span class="attribute">insured</span>": <span class="value"><span class="literal">true</span></span>,
+    "<span class="attribute">state</span>": <span class="value"><span class="string">"OPEN"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claim/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="settlement">Settlement</h2>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to create settlements for claims in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/policy/$policy/claim/$claim/settlement</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+<li><code>$claim</code>: a string that identifies the claim reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>date</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Claim event effective date.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2014-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2014-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>reservedAmounts</em></td>
+<td>Array of JSON objects where each element specifies:</td>
+<td>YES</td>
+<td>List of reserve amounts for this claim event</td>
+</tr>
+<tr>
+<td></td>
+<td>-amount: Integer</td>
+<td>YES</td>
+<td>Reserve amount in pence</td>
+</tr>
+<tr>
+<td></td>
+<td>-fees: Integer</td>
+<td>YES</td>
+<td>Fee amount in pence</td>
+</tr>
+<tr>
+<td></td>
+<td>-subcategory: String</td>
+<td>NO</td>
+<td>Reserve subcategory name</td>
+</tr>
+<tr>
+<td></td>
+<td>-cover: JSON object which gives information about the reserved amount cover by specifying:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-policySection: String</td>
+<td>YES</td>
+<td>Product’s policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Product’s cover name</td>
+</tr>
+<tr>
+<td><em>settlement</em></td>
+<td>JSON object which specifies:</td>
+<td>YES</td>
+<td>Gives full details of the settlement breakdown, i.e. breakdown per cover’s product and type</td>
+</tr>
+<tr>
+<td></td>
+<td>-payeeAccountRef: String</td>
+<td>YES</td>
+<td>Payee account reference (i.e. account code in Sciba)</td>
+</tr>
+<tr>
+<td></td>
+<td>-invoiceRef: String</td>
+<td>YES</td>
+<td>Invoice reference number</td>
+</tr>
+<tr>
+<td></td>
+<td>-exGratia: Boolean</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-insurerPaid: Boolean</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-payNetOfOutstandingLoan: Boolean</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-elements: array to provide a detailed breakdown of the settlement as:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>+$id: Integer</td>
+<td>YES/NO</td>
+<td>Required for VAT type elements which identifies the tax element. Ignored for any other element type.</td>
+</tr>
+<tr>
+<td></td>
+<td>+taxed: JSON object which links element’s amount to tax element when the element is liable to IPT</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-$ref: Integer</td>
+<td>YES</td>
+<td>Required for taxable elements and refers to the id of the tax element for the same cover</td>
+</tr>
+<tr>
+<td></td>
+<td>+amount: Integer</td>
+<td>YES</td>
+<td>Amount in pence for this element</td>
+</tr>
+<tr>
+<td></td>
+<td>+type: String</td>
+<td>YES</td>
+<td>Identifies the element’s type: ‘Amount’, ‘Fees’, ‘Excess’, ‘VAT’</td>
+</tr>
+<tr>
+<td></td>
+<td>+subcategory: String</td>
+<td>YES</td>
+<td>Settlement subcategory name</td>
+</tr>
+<tr>
+<td></td>
+<td>+cover: JSON object which gives information about the element’s cover by specifying:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-policySection: String</td>
+<td>YES</td>
+<td>Product’s policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Product’s cover name</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/settlement</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">date</span>": <span class="value"><span class="string">"2013-01-08T09:11:52.0Z"</span></span>,
+    "<span class="attribute">reserveAmounts</span>": <span class="value">[
+    {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">400</span></span>,
+        "<span class="attribute">fees</span>": <span class="value"><span class="number">80</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+        "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+    </span>}
+    ]</span>,
+    "<span class="attribute">settlement</span>": <span class="value">{
+    "<span class="attribute">payeeAccountRef</span>": <span class="value"><span class="string">"CLT0003"</span></span>,
+    "<span class="attribute">invoiceRef</span>": <span class="value"><span class="string">"REPAIR0001"</span></span>,
+    "<span class="attribute">exGratia</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">insurerPaid</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">payNetOfOutstandingLoan</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">elements</span>": <span class="value">[
+        {
+        "<span class="attribute">$id</span>": <span class="value"><span class="string">"1"</span></span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">20</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"VAT"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">taxed</span>": <span class="value">{
+            "<span class="attribute">$ref</span>": <span class="value"><span class="string">"1"</span>
+        </span>}</span>,
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">100</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Fees"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">600</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Amount"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>},
+        {
+        "<span class="attribute">amount</span>": <span class="value">-<span class="number">50</span></span>,
+        "<span class="attribute">type</span>": <span class="value"><span class="string">"Excess"</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+            "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+        </span>}
+    ]
+    </span>}
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claimEvent/show/100007"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="update-state">Update State</h2>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to update a claim’s state in Sciba</li>
+<li><strong>URL endpoint:</strong> <code>/ws/division/$division/policy/$policy/claim/$claim/state</code> where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+<li><code>$claim</code>: a string that identifies the claim reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>state</em></td>
+<td>String</td>
+<td>YES</td>
+<td>Claim’s state, valid values are: ‘OPEN’ and ‘CLOSED’</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/state</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">state</span>": <span class="value"><span class="string">"CLOSED"</span>
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claim/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="update-reserve-amount">Update Reserve Amount</h2>
+<ul>
+<li><strong>Description:</strong> this endpoint allows clients to update reserve amounts in Sciba</li>
+<li><strong>URL endpoint:</strong> /ws/division/$division/policy/$policy/claim/$claim/update` where<ul>
+<li><code>$division</code>: a string that identifies the division code in Sciba</li>
+<li><code>$policy</code>: a string that identifies the policy reference in Sciba</li>
+<li><code>$claim</code>: a string that identifies the claim reference in Sciba</li>
+</ul>
+</li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Parameters:</strong> the json body request can specify the following parameters:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>date</em></td>
+<td>Date</td>
+<td>YES</td>
+<td>Claim event effective date.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Supported date formats are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss.SSSSSS’Z’ (example: 2014-01-08T00:00:00.000000Z)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>-yyyy-MM-dd’T’HH:mm:ss’Z’ (example: 2014-01-08T00:00:00Z)</td>
+</tr>
+<tr>
+<td><em>reservedAmounts</em></td>
+<td>Array of JSON objects where each element specifies:</td>
+<td>YES</td>
+<td>List of reserve amounts for this claim event</td>
+</tr>
+<tr>
+<td></td>
+<td>-amount: Integer</td>
+<td>YES</td>
+<td>Reserve amount in pence</td>
+</tr>
+<tr>
+<td></td>
+<td>-fees: Integer</td>
+<td>YES</td>
+<td>Fee amount in pence</td>
+</tr>
+<tr>
+<td></td>
+<td>-subcategory: String</td>
+<td>NO</td>
+<td>Reserve subcategory name</td>
+</tr>
+<tr>
+<td></td>
+<td>-cover: JSON object which gives information about the reserved amount cover by specifying:</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-policySection: String</td>
+<td>YES</td>
+<td>Product’s policy section name</td>
+</tr>
+<tr>
+<td></td>
+<td>-name: String</td>
+<td>YES</td>
+<td>Product’s cover name</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Request example:</strong><ul>
+<li><strong>Request:</strong> <code>http://localhost:8080/ws/division/T-ST/policy/POLICY0001/claim/CLAIM0001/update</code></li>
+<li><strong>Method:</strong> POST</li>
+<li><strong>Body:</strong><pre><code class="lang-json">{
+    "<span class="attribute">date</span>": <span class="value"><span class="string">"2013-01-08T09:11:52.0Z"</span></span>,
+    "<span class="attribute">reserveAmounts</span>": <span class="value">[
+    {
+        "<span class="attribute">amount</span>": <span class="value"><span class="number">1000</span></span>,
+        "<span class="attribute">fees</span>": <span class="value"><span class="number">200</span></span>,
+        "<span class="attribute">cover</span>": <span class="value">{
+        "<span class="attribute">policySection</span>": <span class="value"><span class="string">"Equipment"</span></span>,
+        "<span class="attribute">name</span>": <span class="value"><span class="string">"Equipment"</span>
+        </span>}</span>,
+        "<span class="attribute">subcategory</span>": <span class="value"><span class="literal">null</span>
+    </span>}
+    ]
+</span>}
+</code></pre>
+</li>
+<li><strong>Response example</strong>:<pre><code class="lang-json">{
+    "<span class="attribute">_links</span>": <span class="value">{
+    "<span class="attribute">self</span>": <span class="value">{
+        "<span class="attribute">href</span>": <span class="value"><span class="string">"/claimEvent/show/100001"</span>
+    </span>}
+    </span>}
+</span>}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+</div)
+
+</body>
+</html>
