@@ -7,9 +7,7 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-
-<h5 id="version-1-9-3">Version 1.9.3</h5>
-
+<h5 id="version-1-10-0">Version 1.10.0</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -22,12 +20,12 @@
 <h4 id="test-execution">Test Execution</h4>
 <ul>
 <li>Tests are executed sequentially reading tests in each tab and then in each column left to right</li>
-<li>The input file is then copied to produce a colour coded output file showing the results of the tests which includes:<ul>
-<li>A summary sheet showing start and end time and duration of the test execution</li>
-<li>Copies of the original sheets with:<ul>
+<li>Following execution an HTML output file is created showing the results of the tests which includes:<ul>
+<li>A Global summary showing start and end time and duration of the set of tests executed</li>
+<li>A per test summary giving overall result and duration</li>
+<li>A color coded breakdown of the individual test steps<ul>
 <li>Green Cells - have executed successfully</li>
 <li>Red Cells - have failed and caused the remainder of that test to be skipped</li>
-<li>Pale Green - show data captured from the test execution</li>
 </ul>
 </li>
 <li>In addition screenshots of the state of the browser at the time a test failed are provided for analysis </li>
@@ -512,7 +510,31 @@
 <li>Locating -</li>
 <li>Locating -</li>
 </ul>
-<h4 id="ignoring-steps">Ignoring steps</h4>
+<h3 id="timing">Timing</h3>
+<h4 id="recording-timestamps-and-durations">Recording Timestamps and Durations</h4>
+<p>You can add a named timestamps at any point in your test execution. These are written to the output file. In addition you can calculate the difference between two timestamps with the timeDiff test step. See examples below:</p>
+<p><img src="timestamp.PNG" ></p>
+<h4 id="timestamp">Timestamp</h4>
+<ul>
+<li>Value: -</li>
+<li>Action: code</li>
+<li>Detail: timestamp</li>
+<li>Locating Attribute: The name you want to attribute to the timestamp</li>
+<li>Locating Attribute Value: -</li>
+</ul>
+<h4 id="duration">Duration</h4>
+<ul>
+<li>Value: -</li>
+<li>Action: code</li>
+<li>Detail: timeDiff</li>
+<li>Locating Attribute: The name of the timeStamp that defines the Start of the duration to be calculated</li>
+<li>Locating Attribute Value: Either<ul>
+<li>The name of the timeStamp that defines the End of the duration to be calculated</li>
+<li>Or blank to calculate the difference between the startTimestamp and now</li>
+</ul>
+</li>
+</ul>
+<h3 id="ignoring-steps">Ignoring steps</h3>
 <p>If you wish a test to ignore a step of any type simply replace the value with. This can be useful for defining different paths through a series of test steps</p>
 <table>
     <tr><td></td><td></td></tr>
@@ -525,7 +547,7 @@
 
 
 
-<h4 id="stopping-tests">Stopping Tests</h4>
+<h3 id="stopping-tests">Stopping Tests</h3>
 <p>For development you may wish to stop a test at a given step leaving the browser open so you can continue manually. To do this simply set the value of the required Test Step to: </p>
 <table>
     <tr><td></td><td></td></tr>
@@ -537,7 +559,7 @@
 </table>
 
 
-<h4 id="multi-environment-support">Multi Environment Support</h4>
+<h3 id="multi-environment-support">Multi Environment Support</h3>
 <p>It makes sense to build tests that can be run in different environments (without copy and paste)
 To make test input environment specific do the following in your tests:</p>
 <table>
@@ -584,7 +606,7 @@ For a random alpha of 2 characters:<br/>
 
 
 
-<h4 id="working-with-iframes">Working with IFrames</h4>
+<h3 id="working-with-iframes">Working with IFrames</h3>
 <p>If you need to test a page that sits within an iframe of a parent page you must specify that the element is in the iframe. This is done by defining the name of the IFrame to be used as a suffix to your page name and seperated by the <code>~</code> sign. Note this works for any step. 
 For example</p>
 <table>
@@ -614,7 +636,7 @@ For example</p>
 
 
 
-<h4 id="working-with-multiple-windows">Working with multiple Windows</h4>
+<h3 id="working-with-multiple-windows">Working with multiple Windows</h3>
 <p>If your page opens other pages you may need to interact with the new page and then potentially return to the first page.
 This is done in a similar way to working with IFrames and requires the <code>Title</code> of the page required to be defined when working with a window that is not the main window.</p>
 <p>Note all wndows will be closed when the page completes. </p>
@@ -664,9 +686,9 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
 
 
 
-<h4 id="including-tests-in-tests">Including Tests in Tests</h4>
+<h3 id="including-tests-in-tests">Including Tests in Tests</h3>
 <p>You can write tests which you can include in other tests. </p>
-<p>NB - current limitation is only a single layer of includes is possible i.e. you can’t include tests that in turn include other tests</p>
+<p>NB - as of v1.10.0 the previous limitation of only supporting a single layer of includes has been resolved i.e. you can now include tests that in turn include other tests</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -704,6 +726,7 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
 <li>create a ff profile by first closing down all firefox instances and processes</li>
 <li>run <code>firefox.exe -p</code></li>
 <li>create the profile called <code>AUTO_TESTING</code> as that is the name of the profile SC-Test will look for</li>
+<li>some users report that disabling flash plugins in Firefox can give more stable results when running tests in particular preventing some popups</li>
 </ol>
 <p>Using NTLM with Firefox</p>
 <ol>
@@ -718,7 +741,12 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
-
+<h4 id="v1-10-0">v1.10.0</h4>
+<ul>
+<li>Resolved the previous limitation of only supporting a single layer of includes. Now you can now include tests that in turn include other tests</li>
+<li>Replaced XLS output file with an equivalent HTML output file</li>
+<li>Added additional steps for “Recording Timestamps and Durations” - see section of the same name above</li>
+</ul>
 <h4 id="v1-9-3">v1.9.3</h4>
 <ul>
 <li>Fixes bug with includes being processed multiple times when the last line in a test file is an include</li>
