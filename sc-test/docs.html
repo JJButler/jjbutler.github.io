@@ -7,7 +7,7 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-10-0">Version 1.10.0</h5>
+<h5 id="version-1-10-1">Version 1.10.1</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -431,7 +431,8 @@
 <h4 id="variables">Variables</h4>
 <p>Variables are denoted by <code>$MY_VAR</code> notation </p>
 <p>Typically the are created via the use of <code>print</code> Test Steps and used in input steps instead of literal values. See details of these steps for more details</p>
-<p>The scope of variables is at Sheet level to allow variables to be shared across tests if need be. However note that best practise is to make sure tests do not have dependencies on other tests and therefore sharing variables across tests is not recommended.</p>
+<h5 id="local-variables">Local Variables</h5>
+<p>The scope of variables is at Test level.</p>
 <p>Note that variables can also be manually set via the following</p>
 <table>
     <tr><td></td><td></td></tr>
@@ -443,11 +444,48 @@
 </table>
 
 <ul>
-<li>Value: the Sring value of the variable being set (note double quotes should not be used)</li>
+<li>Value: the String value of the variable being set (note double quotes should not be used)</li>
 <li>Action: code</li>
 <li>Detail: setVar</li>
 <li>Locating Attribute: name of the variable to set including the leading $ e.g. SMY_VAR </li>
 <li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h5 id="global-variables">Global Variables</h5>
+<p>The scope of variables is at Sheet level to allow variables to be shared across different tests if need be. However note that best practise, when possible, is to make sure tests do not have dependencies on other tests and therefore sharing variables across tests is not recommended.</p>
+<p>Note that variables can also be manually set via the following</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>homePage:code:setGlobalVar:$MY_VAR:-</td>
+        <td>554tTTK</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value: the String value of the variable being set (note double quotes should not be used)</li>
+<li>Action: code</li>
+<li>Detail: setGlobalVar</li>
+<li>Locating Attribute: name of the variable to set including the leading $ e.g. SMY_VAR </li>
+<li>Locating Attribute Value: Value of the name attribute</li>
+</ul>
+<h3 id="javascript">Javascript</h3>
+<p>This allows you to execute arbitrary javascript code when required</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>homePage:javascript:-:-:-</td>
+        <td>document.getElementById(“productName”).value=’Photoguard’</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value: any standard javascript</li>
+<li>Action: javascript</li>
+<li>Detail: -</li>
+<li>Locating Attribute: -</li>
+<li>Locating Attribute Value: -</li>
 </ul>
 <h3 id="waiting">Waiting</h3>
 <h4 id="waiting-for-elements-to-be-visible-and-enabled">Waiting For Elements to be Visible and Enabled</h4>
@@ -719,7 +757,26 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
 <li>You may need to install the Chrome selenium driver and ensure it is on your path</li>
 <li>You will almost certainly need to install the IE selenium driver and ensure it is on your path (note IE driver is much slower than ff and chrome)</li>
 </ul>
-<h4 id="browser-config">Browser Config</h4>
+<h4 id="log4j-support">Log4j support</h4>
+<p>To get <code>sc-test</code> to log debug info on a log file just open a command prompt and execute <code>sc-test fileToTest.xlsx env path\config.groovy</code></p>
+<p>where:</p>
+<ul>
+<li><code>env</code> is used to resolve any environment specific test steps</li>
+<li><code>path\config.groovy</code> is the log4j configuration to use when running the test (an example of a log4j config file can be found below)</li>
+</ul>
+<pre><code>log4j {
+    appender.stdout = &quot;org.apache.log4j.ConsoleAppender&quot;
+    appender.&quot;stdout.layout&quot;=&quot;org.apache.log4j.PatternLayout&quot;
+    appender.&quot;stdout.layout.ConversionPattern&quot;=&quot;%d %5p [%c{1}] - %m%n&quot;
+
+    appender.filelog = &quot;org.apache.log4j.FileAppender&quot;
+    appender.&quot;filelog.layout&quot;=&quot;org.apache.log4j.PatternLayout&quot;
+    appender.&quot;filelog.layout.ConversionPattern&quot;=&quot;%d %5p [%c{1}] - %m%n&quot;
+    appender.&quot;filelog.file&quot;=&quot;c:/temp/rootscript.log&quot;
+
+    rootLogger=&quot;debug, filelog, stdout&quot;
+}
+</code></pre><h4 id="browser-config">Browser Config</h4>
 <h5 id="firefox">Firefox</h5>
 <p>Its best to create a Firefox profile for automated testing:</p>
 <ol>
@@ -741,6 +798,16 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-10-1">v1.10.1</h4>
+<ul>
+<li>Fixed bug introduced on previous version whereby an include set to %IGNORE% was being included anyway</li>
+<li>Updated selenium, Firefox &amp; Chrome and POI libraries to their latest versions</li>
+<li>Added support for global variables via �setGlobalVar�</li>
+<li>Added support for log4j</li>
+<li>Added support for javascript execution</li>
+<li>Added H2 to the list of supported elements for the print operation</li>
+<li>Added support for JSON manifest files (required when running tests using the front-end)</li>
+</ul>
 <h4 id="v1-10-0">v1.10.0</h4>
 <ul>
 <li>Resolved the previous limitation of only supporting a single layer of includes. Now you can now include tests that in turn include other tests</li>
