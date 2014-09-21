@@ -7,7 +7,7 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-10-1">Version 1.10.1</h5>
+<h5 id="version-1-11">Version 1.11</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -489,12 +489,24 @@
 </ul>
 <h3 id="waiting">Waiting</h3>
 <h4 id="waiting-for-elements-to-be-visible-and-enabled">Waiting For Elements to be Visible and Enabled</h4>
-<p>** NB this has a timeout period of 120 seconds unlike all other steps which timeout if not completed after 30 seconds</p>
+<p>** NB this has a timeout period of 120 seconds unlike all other steps which timeout if not completed after 30 seconds. If for some reason the 120 seconds is not enough a timeout value could be specified (see example below)</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
         <td>homePage:waitForElement:div:id:myDelayedDiv</td>
         <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>WaitForElement with 180 seconds wait</li>
+</ul>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>homePage:waitForElement:div:id:myDelayedDiv</td>
+        <td>180</td>
     </tr>
     <tr><td></td><td></td></tr>
 </table>
@@ -798,6 +810,17 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-11">v1.11</h4>
+<ul>
+<li>Updated Selenium, Firefox and Chrome libraries to their latest versions (2.43.1)<ul>
+<li>Latest drivers now support Firefox 24, 31 and 32</li>
+</ul>
+</li>
+<li>Added full xpath support to the following operations: print, check, nav, submit, enter and waitForElement</li>
+<li>Improved waitForElement by allowing to specify the wait timeout (default is 2 minutes)</li>
+<li>Added p, a, h1 .. h6 to the list of supported html elements for check and print operations</li>
+<li>Added support to run sc-test as an agent integrated with the front end (sc-test-ui)</li>
+</ul>
 <h4 id="v1-10-1">v1.10.1</h4>
 <ul>
 <li>Fixed bug introduced on previous version whereby an include set to %IGNORE% was being included anyway</li>
