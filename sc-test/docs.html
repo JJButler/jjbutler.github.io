@@ -7,25 +7,25 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-10-1">Version 1.10.1</h5>
+<h5 id="version-1-11">Version 1.11</h5>
 <p>Example Test Sheet:</p>
-<p><img src="example.PNG" ></p>
+<p><img src=&quot;example.PNG&quot; ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
 <ul>
 <li>Define your <strong>Tests</strong> in a <strong>Sheet</strong> in an Excel file</li>
 <li>A <strong>Sheet</strong> uses the first column to define the <strong>Test Steps</strong> as a series of actions to perform in executing the <strong>Test</strong></li>
 <li><strong>Tests</strong> or test iterations are then defined in the subsequent columns to the right of the Test Steps and define values to be used for each <strong>Test Step</strong></li>
-<li>You can use multiple <strong>Sheets</strong> to add structure to your tests. E.g. “Happy Days Paths”, “Error Cases”, etc</li>
+<li>You can use multiple <strong>Sheets</strong> to add structure to your tests. E.g. &quot;Happy Days Paths&quot;, &quot;Error Cases&quot;, etc</li>
 </ul>
 <h4 id="test-execution">Test Execution</h4>
 <ul>
 <li>Tests are executed sequentially reading tests in each tab and then in each column left to right</li>
-<li>The input file is then copied to produce a colour coded output file showing the results of the tests which includes:<ul>
-<li>A summary sheet showing start and end time and duration of the test execution</li>
-<li>Copies of the original sheets with:<ul>
+<li>Following execution an HTML output file is created showing the results of the tests which includes:<ul>
+<li>A Global summary showing start and end time and duration of the set of tests executed</li>
+<li>A per test summary giving overall result and duration</li>
+<li>A color coded breakdown of the individual test steps<ul>
 <li>Green Cells - have executed successfully</li>
 <li>Red Cells - have failed and caused the remainder of that test to be skipped</li>
-<li>Pale Green - show data captured from the test execution</li>
 </ul>
 </li>
 <li>In addition screenshots of the state of the browser at the time a test failed are provided for analysis </li>
@@ -33,7 +33,7 @@
 </li>
 </ul>
 <p>Example Results Sheet </p>
-<p><img src="example2.PNG" >   </p>
+<p><img src=&quot;example2.PNG&quot; >   </p>
 <h4 id="the-basics">The Basics</h4>
 <ul>
 <li><strong>Enabled</strong> The first row always defines whether the test should be run or not allows tests to be commented out easily: [true|false]</li>
@@ -49,7 +49,7 @@
 <p>e.g. <code>homePage:nav:link:href:/account/list</code> or <code>page6:enter:input:id:title</code></p>
 <ul>
 <li>The elements to a step are separated by the <code>:</code> character and define what sort of Web Element is to be used in the <strong>Test Step</strong> and what action should be taken.</li>
-<li>The Page attribute is arbitrary and for reference purpose only its recommended to use meaningful Page Names such as “homePage” or loginPage. </li>
+<li>The Page attribute is arbitrary and for reference purpose only its recommended to use meaningful Page Names such as &quot;homePage&quot; or loginPage. </li>
 <li>Other Element are discussed in the following sections </li>
 </ul>
 <h4 id="creating-a-browser">Creating a browser</h4>
@@ -120,7 +120,7 @@
 <li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code></li>
 </ul>
 <h4 id="click-on-a-hyperlink">Click on a hyperlink</h4>
-<p>Example selecting link by attribute “href”:</p>
+<p>Example selecting link by attribute &quot;href&quot;:</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -157,9 +157,9 @@
 <li><code>-</code></li>
 <li>The text of the link (can be populated via a variable)</li>
 <li>Part of the text of the link when using:<ul>
-<li>startsWith(“My Link Text Starts Like…”)</li>
-<li>endsWith(“…and Ends Here”)</li>
-<li>contains(“the middle”)</li>
+<li>startsWith(&quot;My Link Text Starts Like...&quot;)</li>
+<li>endsWith(&quot;...and Ends Here&quot;)</li>
+<li>contains(&quot;the middle&quot;)</li>
 </ul>
 </li>
 </ul>
@@ -177,7 +177,7 @@
 <li>Locating Attribute Value: Value of the attribute specified in <code>Locating Attribute</code> or the text of the link where text is used as the <code>Location Attribute</code> or <code>-</code> where link text is specifed in Value</li>
 </ul>
 <h5 id="further-examples">Further Examples</h5>
-<p><img src="links.PNG" ></p>
+<p><img src=&quot;links.PNG&quot; ></p>
 <h4 id="working-with-forms">Working with Forms</h4>
 <h5 id="input-fields-">Input fields:</h5>
 <table>
@@ -347,9 +347,9 @@
 <ul>
 <li>The expected value OR</li>
 <li>Part of the text of the link when using:<ul>
-<li>startsWith(“My Link Text Starts Like…”)</li>
-<li>endsWith(“…and Ends Here”)</li>
-<li>contains(“the middle”)</li>
+<li>startsWith(&quot;My Link Text Starts Like...&quot;)</li>
+<li>endsWith(&quot;...and Ends Here&quot;)</li>
+<li>contains(&quot;the middle&quot;)</li>
 </ul>
 </li>
 </ul>
@@ -373,7 +373,7 @@
 <li>Locating Attribute Value: Value of the location attribute</li>
 </ul>
 <h5 id="further-examples">Further Examples</h5>
-<p><img src="check.PNG" ></p>
+<p><img src=&quot;check.PNG&quot; ></p>
 <h4 id="capturing-values-">Capturing values:</h4>
 <p>Captures the value from a web element and write to Results file and or variable for use elsewhere </p>
 <table>
@@ -385,7 +385,7 @@
     <tr><td></td><td></td></tr>
 </table>
 
-<p>Or if you wish to record the output to be used pragmatically later on in the test….:</p>
+<p>Or if you wish to record the output to be used pragmatically later on in the test....:</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
@@ -421,7 +421,7 @@
 <table>
     <tr><td></td><td></td></tr>
     <tr>
-        <td>homePage:print:td:xpath://*[@id=”Name_ileinner”]</td>
+        <td>homePage:print:td:xpath://*[@id=&quot;Name_ileinner&quot;]</td>
         <td>$POLICY_REFERENCE</td>
     </tr>
     <tr><td></td><td></td></tr>
@@ -475,7 +475,7 @@
     <tr><td></td><td></td></tr>
     <tr>
         <td>homePage:javascript:-:-:-</td>
-        <td>document.getElementById(“productName”).value=’Photoguard’</td>
+        <td>document.getElementById(&quot;productName&quot;).value=’Photoguard’</td>
     </tr>
     <tr><td></td><td></td></tr>
 </table>
@@ -489,12 +489,24 @@
 </ul>
 <h3 id="waiting">Waiting</h3>
 <h4 id="waiting-for-elements-to-be-visible-and-enabled">Waiting For Elements to be Visible and Enabled</h4>
-<p>** NB this has a timeout period of 120 seconds unlike all other steps which timeout if not completed after 30 seconds</p>
+<p>** NB this has a timeout period of 120 seconds unlike all other steps which timeout if not completed after 30 seconds. If for some reason the 120 seconds is not enough a timeout value could be specified (see example below)</p>
 <table>
     <tr><td></td><td></td></tr>
     <tr>
         <td>homePage:waitForElement:div:id:myDelayedDiv</td>
         <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>WaitForElement with 180 seconds wait</li>
+</ul>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>homePage:waitForElement:div:id:myDelayedDiv</td>
+        <td>180</td>
     </tr>
     <tr><td></td><td></td></tr>
 </table>
@@ -551,7 +563,7 @@
 <h3 id="timing">Timing</h3>
 <h4 id="recording-timestamps-and-durations">Recording Timestamps and Durations</h4>
 <p>You can add a named timestamps at any point in your test execution. These are written to the output file. In addition you can calculate the difference between two timestamps with the timeDiff test step. See examples below:</p>
-<p><img src="timestamp.PNG" ></p>
+<p><img src=&quot;timestamp.PNG&quot; ></p>
 <h4 id="timestamp">Timestamp</h4>
 <ul>
 <li>Value: -</li>
@@ -608,10 +620,10 @@ To make test input environment specific do the following in your tests:</p>
         <pre>
         <code>
 {
-    “envs”: {
-        “dev”: “dev.mysite.com”,
-        “uat”: “uat.mysite.com”,
-        “prd”: “www.mysite.com”,
+    &quot;envs&quot;: {
+        &quot;dev&quot;: &quot;dev.mysite.com&quot;,
+        &quot;uat&quot;: &quot;uat.mysite.com&quot;,
+        &quot;prd&quot;: &quot;www.mysite.com&quot;,
     }
 }
 
@@ -625,7 +637,7 @@ To make test input environment specific do the following in your tests:</p>
 
 <p>Then simply specify the env at test execution e.g.  <code>testIt myTestFile.xlsx env:dev</code> </p>
 <h4 id="generating-random-content-for-values">Generating Random Content for values</h4>
-<p>To generate random test content - say for email addresses….</p>
+<p>To generate random test content - say for email addresses....</p>
 <p>For a random number of 8 characters:<br/>
 <code>%RANDOM_NUMERIC_8%</code><br/><br/>
 For a random alphanumeric of 3 characters:<br/>
@@ -765,16 +777,16 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
 <li><code>path\config.groovy</code> is the log4j configuration to use when running the test (an example of a log4j config file can be found below)</li>
 </ul>
 <pre><code>log4j {
-    appender.stdout = &quot;org.apache.log4j.ConsoleAppender&quot;
-    appender.&quot;stdout.layout&quot;=&quot;org.apache.log4j.PatternLayout&quot;
-    appender.&quot;stdout.layout.ConversionPattern&quot;=&quot;%d %5p [%c{1}] - %m%n&quot;
+    appender.stdout = &amp;quot;org.apache.log4j.ConsoleAppender&amp;quot;
+    appender.&amp;quot;stdout.layout&amp;quot;=&amp;quot;org.apache.log4j.PatternLayout&amp;quot;
+    appender.&amp;quot;stdout.layout.ConversionPattern&amp;quot;=&amp;quot;%d %5p [%c{1}] - %m%n&amp;quot;
 
-    appender.filelog = &quot;org.apache.log4j.FileAppender&quot;
-    appender.&quot;filelog.layout&quot;=&quot;org.apache.log4j.PatternLayout&quot;
-    appender.&quot;filelog.layout.ConversionPattern&quot;=&quot;%d %5p [%c{1}] - %m%n&quot;
-    appender.&quot;filelog.file&quot;=&quot;c:/temp/rootscript.log&quot;
+    appender.filelog = &amp;quot;org.apache.log4j.FileAppender&amp;quot;
+    appender.&amp;quot;filelog.layout&amp;quot;=&amp;quot;org.apache.log4j.PatternLayout&amp;quot;
+    appender.&amp;quot;filelog.layout.ConversionPattern&amp;quot;=&amp;quot;%d %5p [%c{1}] - %m%n&amp;quot;
+    appender.&amp;quot;filelog.file&amp;quot;=&amp;quot;c:/temp/rootscript.log&amp;quot;
 
-    rootLogger=&quot;debug, filelog, stdout&quot;
+    rootLogger=&amp;quot;debug, filelog, stdout&amp;quot;
 }
 </code></pre><h4 id="browser-config">Browser Config</h4>
 <h5 id="firefox">Firefox</h5>
@@ -788,16 +800,27 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
 <p>Using NTLM with Firefox</p>
 <ol>
 <li>to configure your profile, run FF as the new profile</li>
-<li>in the address bar type “about:config” and accept warnings</li>
-<li>Type “Proxy” in the search field</li>
-<li>Make sure “signon.autologin.proxy” is set “true” (By default it is “false”)</li>
-<li><p>Now type type the following “network.automatic-ntlm-auth.trusted-uris” in the filter
+<li>in the address bar type &quot;about:config&quot; and accept warnings</li>
+<li>Type &quot;Proxy&quot; in the search field</li>
+<li>Make sure &quot;signon.autologin.proxy&quot; is set &quot;true&quot; (By default it is &quot;false&quot;)</li>
+<li><p>Now type type the following &quot;network.automatic-ntlm-auth.trusted-uris&quot; in the filter
 g. Double click the name of the preference
 h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma seperated) in the form of:</p>
 <p> <a href="http://intranet.company.com,http://email.company.lan">http://intranet.company.com,http://email.company.lan</a></p>
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-11">v1.11</h4>
+<ul>
+<li>Updated Selenium, Firefox and Chrome libraries to their latest versions (2.43.1)<ul>
+<li>Latest drivers now support Firefox 24, 31 and 32</li>
+</ul>
+</li>
+<li>Added full xpath support to the following operations: print, check, nav, submit, enter and waitForElement</li>
+<li>Improved waitForElement by allowing to specify the wait timeout (default is 2 minutes)</li>
+<li>Added p, a, h1 .. h6 to the list of supported html elements for check and print operations</li>
+<li>Added support to run sc-test as an agent integrated with the front end (sc-test-ui)</li>
+</ul>
 <h4 id="v1-10-1">v1.10.1</h4>
 <ul>
 <li>Fixed bug introduced on previous version whereby an include set to %IGNORE% was being included anyway</li>
@@ -812,12 +835,12 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 <ul>
 <li>Resolved the previous limitation of only supporting a single layer of includes. Now you can now include tests that in turn include other tests</li>
 <li>Replaced XLS output file with an equivalent HTML output file</li>
-<li>Added additional steps for “Recording Timestamps and Durations” - see section of the same name above</li>
+<li>Added additional steps for &quot;Recording Timestamps and Durations&quot; - see section of the same name above</li>
 </ul>
 <h4 id="v1-9-3">v1.9.3</h4>
 <ul>
 <li>Fixes bug with includes being processed multiple times when the last line in a test file is an include</li>
-<li>Fixes bug where specifiying test steps that use element names that contain the text “Include” was causing the tests not to load.</li>
+<li>Fixes bug where specifiying test steps that use element names that contain the text &quot;Include&quot; was causing the tests not to load.</li>
 </ul>
 <h4 id="v1-9-2">v1.9.2</h4>
 <ul>
@@ -827,7 +850,7 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 <ul>
 <li>Fixed really odd issue whereby accessing visible inputs was timing out</li>
 <li>Fixed bug where formulas in imported tests were not working reliably</li>
-<li>An “Intermediate” output file now show the state of the spreadsheet created before its executed. It is of the form “regression_exe_Jun_30_08.47.xlsx”</li>
+<li>An &quot;Intermediate&quot; output file now show the state of the spreadsheet created before its executed. It is of the form &quot;regression_exe_Jun_30_08.47.xlsx&quot;</li>
 <li>Cleaned up debug </li>
 </ul>
 <h4 id="v1-9">v1.9</h4>
