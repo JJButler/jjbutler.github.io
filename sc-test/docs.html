@@ -7,7 +7,7 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-11">Version 1.11</h5>
+<h5 id="version-1-13">Version 1.13</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -36,7 +36,7 @@
 <p><img src="example2.PNG" >   </p>
 <h4 id="the-basics">The Basics</h4>
 <ul>
-<li><strong>Enabled</strong> The first row always defines whether the test should be run or not allows tests to be commented out easily: [true|false]</li>
+<li><strong>Enabled</strong> The first row always defines whether the test should be run or not allows tests to be commented out easily: [true/yes | false/no]. Alternatively if a number is specified the test will be attempted that number of times to try and achieve a sucessful result. This can be useful if running a suite of tests overnight for example.</li>
 <li><strong>Commenting Steps</strong> Steps whose name starts with a <code>//</code> are ignored at execution time - these allow you to add columns for commenting your tests</li>
 <li><strong>Commenting Sheets/Tabs</strong> Whole sheets (tabs) can be disabled by commenting out the sheet by simply prefixing the sheet name with a <code>--</code></li>
 <li><strong>Recommended rows</strong> It is recommended to include a <code>Name</code> and <code>Description row</code> at the top of your file. These will be ignored but help make scripts understandable  </li>
@@ -609,6 +609,22 @@
 </table>
 
 
+<h3 id="persisting-the-browser-after-test-completion">Persisting the browser after test completion</h3>
+<p>For development you may wish to leave the browser up after the test has completed. This can be achived by the following:</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>homePage:persist_browser:-:-:-</td>
+        <td>-</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
+
+
+
+
 <h3 id="multi-environment-support">Multi Environment Support</h3>
 <p>It makes sense to build tests that can be run in different environments (without copy and paste)
 To make test input environment specific do the following in your tests:</p>
@@ -810,6 +826,16 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ol>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-13">v1.13</h4>
+<ul>
+<li>Added Retry functionality - See <em>The Basics</em> if the <em>Enabled</em> setting is set to a number, the test will be attempted that number of times to try and achieve a sucessful result. This can be useful if running a suite of tests overnight for example.</li>
+</ul>
+<h4 id="v1-12">v1.12</h4>
+<ul>
+<li>Added Persist functionionality (see above)</li>
+<li>Test results no longer include steps where the step is ignored via %IGNORE%</li>
+<li>Performance improvements via internal translation to use xpaths under the hood</li>
+</ul>
 <h4 id="v1-11">v1.11</h4>
 <ul>
 <li>Updated Selenium, Firefox and Chrome libraries to their latest versions (2.43.1)<ul>
