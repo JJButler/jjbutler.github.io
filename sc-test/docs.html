@@ -7,7 +7,7 @@
 <body>
 <div class="markdown-body">
 <h3 id="sc-test-quick-start-guide">SC-Test - Quick Start Guide</h3>
-<h5 id="version-1-13">Version 1.13</h5>
+<h5 id="version-1-14">Version 1.14</h5>
 <p>Example Test Sheet:</p>
 <p><img src="example.PNG" ></p>
 <h4 id="the-basics-structure">The Basics - Structure</h4>
@@ -560,6 +560,24 @@
 <li>Locating -</li>
 <li>Locating -</li>
 </ul>
+<h4 id="waiting-for-javascript-condition">Waiting for Javascript condition</h4>
+<p>Waits for the specified Javascript condition to be true</p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>docs:waitForJavascript:-:-:-</td>
+        <td>return (document.getElementById(‘spanTimer’).getAttribute(‘visibility’) == false)</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+<ul>
+<li>Value: the JS code which must return either <code>true</code> or <code>false</code>. <strong>NB: if the website being tested uses a JS library like jQuery the JS code specified here can be written using that library too</strong></li>
+<li>Action: waitForJavascript</li>
+<li>Detail: -</li>
+<li>Locating Attribute: -</li>
+<li>Locating Attribute Value: -</li>
+</ul>
 <h3 id="timing">Timing</h3>
 <h4 id="recording-timestamps-and-durations">Recording Timestamps and Durations</h4>
 <p>You can add a named timestamps at any point in your test execution. These are written to the output file. In addition you can calculate the difference between two timestamps with the timeDiff test step. See examples below:</p>
@@ -764,8 +782,23 @@ This is done in a similar way to working with IFrames and requires the <code>Tit
     <tr><td></td><td></td></tr>
 </table>
 
+<p>NB - as of v1.14 you can now use conditionals to decide, during runtime, whether the include will be executed or not. The example below will only execute the included steps if the value of <code>MY_VAR</code> is not <code>invalid</code></p>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <td>page1:code:setVar:$MY_VAR:-</td>
+        <td>invalid</td>
+    </tr>
+    <tr>
+        <td>page1:include:./resources/test/regression_include.xlsx:core_nav:Core_1_NAV</td>
+        <td>!(‘$MY_VAR’ == ‘invalid’)</td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
+
+
 <ul>
-<li>Value: -</li>
+<li>Value: - or a condition written in Groovy</li>
 <li>Action: include</li>
 <li>Detail: file containing the included test</li>
 <li>Locating Attribute: Sheet name containing the included test</li>
@@ -825,7 +858,20 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 <p> <a href="http://intranet.company.com,http://email.company.lan">http://intranet.company.com,http://email.company.lan</a></p>
 </li>
 </ol>
+<h4 id="concurrency-support">Concurrency Support</h4>
+<ul>
+<li><p>As of v1.14, tests can be run in paralell, when this functionality is enabled each tab of the spreadsheet will be executed concurrently. So to enable this feature the following environment settings needs to be added: <code>set SC_TEST_OPTS=-Dsc-test.concurrency.enabled=true</code> and <code>-Dgpars.poolsize=5</code></p>
+</li>
+<li><p>The environment variable <code>sc-test.concurrency.enabled</code> controls the concurrency feature and the variable <code>gpars.poolsize</code> controls the maximum number of concurrent tests. Feel free to experiment with different values for <code>gpars.poolsize</code> but please bear in mind that the more tests running in parallel the more memory sc-test will require as each test will be executed in its own firefox window.</p>
+</li>
+</ul>
 <h3 id="changelog">ChangeLog</h3>
+<h4 id="v1-14">v1.14</h4>
+<ul>
+<li>Added support for conditional includes - See <em>Including Tests in Tests</em>. This can be useful to write tests that cope with different alternatives.</li>
+<li>Added new operation <code>WaitForJavascript</code> - See <em>Waiting for Javascript condition</em>. This can be useful to wait for a dynamic JS condition like waiting for a spinner icon to disappear.</li>
+<li>Added new feature to run tests concurrently - See <em>Concurrency Support</em>.</li>
+</ul>
 <h4 id="v1-13">v1.13</h4>
 <ul>
 <li>Added Retry functionality - See <em>The Basics</em> if the <em>Enabled</em> setting is set to a number, the test will be attempted that number of times to try and achieve a sucessful result. This can be useful if running a suite of tests overnight for example.</li>
