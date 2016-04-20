@@ -866,6 +866,37 @@ h. Enter the URLs of the sites you wish to allow NTLM passthrough for (comma sep
 </li>
 </ul>
 <h3 id="changelog">ChangeLog</h3>
+
+
+
+
+<h4 id="v1-17">v1.17 (April 2016)</h4>
+<ul>
+<li>Updated selenium libraries - supports the latest stable support FF version 45.02.
+</li>
+<li>Support for reuse of browser sessions across tests. To achieve:
+    <ul>
+        <li>Only call <code>Browser</code> on your first runnable test (column)</li>
+        <li>Call <code>persist_browser</code> on every test </li>
+    </ul>
+</li>
+</ul>
+
+
+
+<h4 id="v1-16">v1.16</h4>
+<ul>
+<li>Updated selenium libraries and chrome, ie and firefox drivers to the latest current version 2.47.1 (with this upgrade selenium supports the latest version of FF, i.e. 39)
+</li>
+<li>Fixed bug in `xpathFinder` method when using xpath expressions and the actual xpath expression is specified in the value cell rather than being the last part of the operation cell.</li>
+</ul>
+
+<h4 id="v1-15">v1.15</h4>
+<ul>
+<li>Updated Selenium libraries to version 2.45 so sc-test works with the latest Firefox version 36.x</li>
+</ul>
+
+
 <h4 id="v1-14">v1.14</h4>
 <ul>
 <li>Added support for conditional includes - See <em>Including Tests in Tests</em>. This can be useful to write tests that cope with different alternatives.</li>
